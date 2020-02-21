@@ -18,9 +18,9 @@
                     <div class="card-header">[@if($mall_id ==1) 麦德龙订菜 @else 中百订菜@endif] / <a
                                 href="{{ route('home') }}">个人中心</a> / <a
                                 href="{{ route('order.create') }}">麦德龙订菜</a> /
-                        <a href="/vendor/product.png"
+                        <a href="{{ route('info.mdl') }}"
                            target="_blank">麦德龙菜单</a> / <a
-                                href="{{ route('order.zbcreate') }}">中百订菜</a></div>
+                                href="{{ route('order.zbcreate') }}">中百订菜</a> / <a href="{{ route('info.zb') }}" target="_blank">中百菜单</a></div>
                     <div class="card-body">
                         <form action="{{route('cart.store')}}" method="post">
                             @csrf

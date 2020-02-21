@@ -25,6 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('info')->name('info.')->group(function () {
     Route::get('/', 'InfoController@index')->name('index');
     Route::get('buy', 'InfoController@buy')->name('buy');
+    Route::get('mdl', 'InfoController@mdl')->name('mdl');
+    Route::get('zb', 'InfoController@zb')->name('zb');
 });
 
 //地址管理

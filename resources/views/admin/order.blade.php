@@ -89,6 +89,7 @@
                                 <th scope="col">订单金额</th>
                                 <th scope="col">收款时间</th>
                                 <th scope="col">确认收货</th>
+                                <th scope="col">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -110,6 +111,13 @@
                                                                                     onclick="document.getElementById('pay_back_{{$order['id']}}').submit()">取消</a> @endif
                                     </td>
                                     <td>@if($order['is_success']===0) 未确认 @else 已确认  @endif</td>
+                                    <td><a href="javascript:;" onclick="document.getElementById('del_order_{{$order['id']}}').submit()">删除</a>
+                                        <form action="{{ route('order.destroy',$order['id']) }}" method="post"
+                                              id="del_order_{{ $order['id'] }}">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                    </td>
                                 </tr>
                                 <div style="display: none;">
                                     <form action="{{ route('admin.pay',$order['id']) }}" method="post"
@@ -120,6 +128,7 @@
                                           id="pay_back_{{ $order['id'] }}">
                                         @csrf
                                     </form>
+
                                 </div>
                             @endforeach
                             </tbody>

@@ -9,6 +9,7 @@ use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -27,7 +28,7 @@ class OrderController extends Controller
     //麦德龙
     public function create()
     {
-        $state=Mall::find(1)->is_show;
+        $state = Mall::find(1)->is_show;
         $mall_id = 1;
         $address = Address::where('user_id', Auth::id())->first();
         if (is_null($address)) {
@@ -42,13 +43,13 @@ class OrderController extends Controller
         }
         //添加商品
         $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
-        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id','state'));
+        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id', 'state'));
     }
 
     //中百
     public function zbcreate()
     {
-        $state=Mall::find(2)->is_show;
+        $state = Mall::find(2)->is_show;
         $mall_id = 2;
         $address = Address::where('user_id', Auth::id())->first();
         if (is_null($address)) {
@@ -63,9 +64,10 @@ class OrderController extends Controller
         }
         //添加商品
         $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
-        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id','state'));
+        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id', 'state'));
     }
 
+    //提交订单
     public function store(Request $request)
     {
         $mall_id = $request->input('mall_id');
@@ -85,15 +87,26 @@ class OrderController extends Controller
         $data['total_money'] = $total_price;
         $data['total_num'] = array_sum($carts->pluck('total_num')->toArray());
         $data['mall_id'] = $mall_id;
-
-        $order = Order::create($data);
-
-        if ($order) {
-            Cart::where('user_id', Auth::id())->where('mall_id',$mall_id)->delete();
-            return redirect(route('order.show', $order->id))->with('success', '提交订单成功,请联系志愿者进行转账。');
-        } else {
-            return back()->with('success', '提交订单失败!!!!!');
+        try {
+            DB::transaction(function () use ($data, $mall_id, $carts) {
+                //创建订单
+                Order::create($data);
+                //清空购物车
+                Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->delete();
+                //减商品对应的库存
+                foreach ($carts as $cart) {
+                    $product = Product::find($cart->product_id);
+                    //如果库存为负数则抛出异常
+                    if ($product->stock - $cart->total_mum < 0) {
+                        throw new \Exception('当前商品'.$product->name.'库存不足，提交订单失败!');
+                    }
+                    Product::find($cart->product_id)->decrement('stock', $cart->total_num);
+                }
+            }, 5);
+        } catch (\Exception $exception) {
+            return back()->with('success', '提交订单失败!!!!!'.$exception->getMessage());
         }
+        return redirect(route('order.index'))->with('success', '提交订单成功,请联系志愿者进行转账。');
     }
 
     public function show($id)
