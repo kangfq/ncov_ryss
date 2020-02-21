@@ -128,13 +128,12 @@
                                           id="pay_back_{{ $order['id'] }}">
                                         @csrf
                                     </form>
-
                                 </div>
                             @endforeach
                             </tbody>
                         </table>
                         <hr>
-                        <b>【汇总信息】商品总件数：{{ $base['total_num'] }}件，订单总金额：{{ $base['total_money'] }}
+                        <b>【汇总信息】订单数量：{{ $base['count'] }}，商品总件数：{{ $base['total_num'] }}件，订单总金额：{{ $base['total_money'] }}
                             元，已收款{{ $base['total_pay_money'] }}元，已收货{{ $base['success_y'] }}
                             单，未收货{{ $base['success_n'] }}单。（疫情期间，请各位志愿者注意身体！）^_^</b>
                     </div>

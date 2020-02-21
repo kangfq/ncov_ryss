@@ -147,6 +147,7 @@ class AdminController extends Controller
         }
         $base['success_y'] = array_sum($orders->pluck('is_success')->toArray());
         $base['success_n'] = $orders->count() - $base['success_y'];
+        $base['count'] = $orders->count();
 
         foreach ($orders as $key => $value) {
             $pros = json_decode($value->products);
@@ -214,6 +215,7 @@ class AdminController extends Controller
         }
         $base['success_y'] = array_sum($orders->pluck('is_success')->toArray());
         $base['success_n'] = $orders->count() - $base['success_y'];
+        $base['count'] = $orders->count();
 
         foreach ($orders as $key => $value) {
             $pros = json_decode($value->products);
