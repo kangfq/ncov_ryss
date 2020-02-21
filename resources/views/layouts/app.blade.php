@@ -76,5 +76,15 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?689cbdf33a299a0a9ac34c01ec63a404";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
 </body>
 </html>
