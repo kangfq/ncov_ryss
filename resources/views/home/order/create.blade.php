@@ -12,7 +12,8 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header"><a
-                                href="{{ route('home') }}">个人中心</a> / 开始订菜 / <a href="/vendor/product.png" target="_blank">查看菜单</a> </div>
+                                href="{{ route('home') }}">个人中心</a> / 开始订菜 / <a href="/vendor/product.png"
+                                                                                target="_blank">查看菜单</a></div>
 
                     <div class="card-body">
                         <form action="{{route('cart.store')}}" method="post">
@@ -68,7 +69,7 @@
                                     <td>{{ $cart->total_num }}</td>
                                     <td>￥{{ $cart->total_num * $cart->product->money }}</td>
                                     <td><a href="javascript:;"
-                                           onclick="document.getElementById('del_{{ $cart->id}}').submit()">删除</a></td>
+                                           onclick="document.getElementById('del_{{ $cart->id}}').submit()">删除</a>
                                     <div style="display: none">
                                         <form action="{{ route('cart.destroy',$cart->id) }}" method="post"
                                               id="del_{{ $cart->id }}">
@@ -76,6 +77,7 @@
                                             @method('delete')
                                         </form>
                                     </div>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

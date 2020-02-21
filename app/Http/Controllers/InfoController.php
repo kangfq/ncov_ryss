@@ -11,4 +11,10 @@ class InfoController extends Controller
         return view('info.index');
     }
 
+    public function buy()
+    {
+        return view('info.buy');
+    }
+
+
 }

@@ -80,15 +80,18 @@
     @endif
 
     <div class="content">
-        <div class="title m-b-md">
+        <div class="title m-b-md" style="font-size: 40px;!important;">
             日月山水加油!
         </div>
-{{--        <div>说明:感谢.....</div>--}}
+        {{--        <div>说明:感谢.....</div>--}}
         <div class="links">
-            <a href="{{ route('info.index') }}">常用信息</a>
-            <a href="/vendor/product.png" target="_blank">查看菜单(麦德龙)</a>
-            <a href="{{ route('home') }}">我要订菜</a>
-            <a href="{{ route('admin.index') }}">管理入口</a>
+            <a href="{{ route('info.index') }}">信息公开</a>
+            <a href="{{ route('home') }}">我要买菜</a>
+            @if(Auth()->check())
+                @if(Auth()->user()->is_admin==1)
+                    <a href="{{ route('admin.index') }}">管理入口</a>
+                @endif
+            @endif
         </div>
     </div>
 </div>

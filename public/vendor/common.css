@@ -1,0 +1,6 @@
+.mall > div{
+    float: left;
+    border: 1px solid white;
+    height: 300px;
+    margin: 5px;
+}

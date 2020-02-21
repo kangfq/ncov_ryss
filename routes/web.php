@@ -24,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //常用信息
 Route::prefix('info')->name('info.')->group(function () {
     Route::get('/', 'InfoController@index')->name('index');
+    Route::get('buy', 'InfoController@buy')->name('buy');
 });
 
 //地址管理
@@ -38,7 +39,7 @@ Route::prefix('order')->name('order.')->group(function () {
     Route::get('/create', 'OrderController@create')->name('create');
     Route::post('store', 'OrderController@store')->name('store');
     Route::get('show/{id}', 'OrderController@show')->name('show');
-    Route::post('success', 'OrderController@success')->name('success');
+    Route::post('success/{id}', 'OrderController@success')->name('success');
     Route::delete('destroy/{id}', 'OrderController@destroy')->name('destroy');
 });
 //商品管理

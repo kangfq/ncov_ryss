@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a8b90923-2075-4c0d-a82d-cc6926cae33e" name="Default Changelist" comment="" />
+    <list default="true" id="a8b90923-2075-4c0d-a82d-cc6926cae33e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/InfoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/InfoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home/order/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/order/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home/order/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/order/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home/order/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/order/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/info/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/info/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -123,15 +134,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/vendor/qrcode" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\laragon\www\ryss\resources\views\admin" />
+      <recent name="E:\laragon\www\ryss\public\vendor\qrcode" />
       <recent name="E:\laragon\www\ryss\resources\views\info" />
+      <recent name="E:\laragon\www\ryss\resources\views\admin" />
       <recent name="E:\laragon\www\ryss\resources\views\home\order" />
       <recent name="E:\laragon\www\ryss\public\vendor" />
     </key>
@@ -154,7 +166,8 @@
       <updated>1582107249918</updated>
       <workItem from="1582107252616" duration="7609000" />
       <workItem from="1582165813954" duration="25540000" />
-      <workItem from="1582246507173" duration="7712000" />
+      <workItem from="1582246507173" duration="14320000" />
+      <workItem from="1582262565376" duration="1046000" />
     </task>
     <servers />
   </component>

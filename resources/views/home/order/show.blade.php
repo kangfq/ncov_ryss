@@ -38,20 +38,23 @@
                                                 onclick="document.getElementById('success_order').submit()">确认收货
                                         </button>
                                     </a> @else 已收货 @endif</td>
-                                <td><a href="javascript:; "> <button class="btn btn-sm btn-danger" type="button"
-                                                                     onclick="document.getElementById('del_order').submit()">删除订单
-                                        </button></a></td>
+                                <td><a href="javascript:;">
+                                        <button class="btn btn-sm btn-danger" type="button"
+                                                onclick="document.getElementById('del_order').submit()">删除订单
+                                        </button>
+                                    </a>
+                                    <div style="display: none;">
+                                        <form action="{{ route('order.success',$order->id) }}" method="post" id="success_order">
+                                            <input type="text" name="order_id" value="{{ $order->id }}"/>
+                                        </form>
+                                        <form action="{{ route('order.destroy',$order->id) }}" method="post"
+                                              id="del_order">
+                                            @method('delete')
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
-                            <div style="display: none;">
-                                <form action="{{ route('order.success') }}" method="post" id="success_order">
-                                    <input type="text" name="order_id" value="{{ $order->id }}">
-                                    @csrf
-                                </form>
-                                <form action="{{ route('order.destroy',$order->id) }}" method="post" id="del_order">
-                                    @method('delete')
-                                    @csrf
-                                </form>
-                            </div>
+
                             </tbody>
                         </table>
                     </div>

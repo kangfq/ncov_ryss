@@ -15,7 +15,7 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th scope="col">订单号</th>
+                                <th scope="col">订单号11</th>
                                 <th scope="col">姓名</th>
                                 <th scope="col">手机号码</th>
                                 <th scope="col">下单时间</th>
@@ -39,13 +39,18 @@
                                     <td>{{ $order['total_num'] }}</td>
                                     <td>{{ $order['pay_time'] }}</td>
                                     <td>@if($order['is_success']===0) <a href="javascript:;">
-                                            <div style="display: none;">
-                                                <form action="{{ route('order.success') }}" method="post" id="success_{{ $order['is_success'] }}">
-                                                    @csrf
-                                                    <input type="text" name="order_id" value="{{ $order['id'] }}">
-                                                </form>
-                                            </div>
-                                            <button class="btn btn-sm btn-danger" onclick="document.getElementById('success_{{$order['is_success']}}').submit()">确认收货</button></a> @else 已收货 @endif</td>
+
+                                            <button class="btn btn-sm btn-danger"
+                                                    onclick="document.getElementById('success_{{$order['id']}}').submit()">
+                                                确认收货
+                                            </button>
+                                        </a> @else 已收货 @endif
+                                        <form action="{{ route('order.success',$order['id']) }}" method="post"
+                                              id="success_{{ $order['id'] }}" style="display: none;">
+                                            @csrf
+                                            <input type="text" name="order_id" value="{{ $order['id'] }}">
+                                        </form>
+                                    </td>
                                     <td><a href="{{ route('order.show',$order['id'])}}">查看详情</a></td>
                                 </tr>
                             @endforeach

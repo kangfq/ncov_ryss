@@ -86,10 +86,8 @@ class OrderController extends Controller
     }
 
     //确认收货
-    public function success(Request $request)
+    public function success(Request $request,$id)
     {
-        $id = $request->order_id;
-
         $order = Order::where('user_id', Auth::id())->where('id', $id)->first();
         if (is_null($order->pay_time)) {
             return back()->with('success', '确认收货失败！！因为没有付钱。如果您已经支付，请联系卖家在后台确认收钱！');
@@ -115,8 +113,6 @@ class OrderController extends Controller
         } else {
             return back()->with('success', '订单已经支付或者已经收货，无法删除！！！');
         }
-
-
     }
 
 }
