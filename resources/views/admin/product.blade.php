@@ -31,15 +31,16 @@
                                     <td><a href="{{ route('admin.edit',$product->id) }}">编辑</a> /
                                         <a href="javascript:;"
                                            onclick="document.getElementById('product_{{$product->id}}').submit()">删除</a>
+                                        <div style="display: none;">
+                                            <form action="{{ route('admin.destroy',$product->id) }}" method="post"
+                                                  id="product_{{ $product->id }}">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
-                                <div style="display: none;">
-                                    <form action="{{ route('admin.destroy',$product->id) }}" method="post"
-                                          id="product_{{ $product->id }}">
-                                        @csrf
-                                        @method('delete')
-                                    </form>
-                                </div>
+
                             @endforeach
                             </tbody>
                         </table>
