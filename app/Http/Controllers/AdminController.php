@@ -16,7 +16,7 @@ class AdminController extends Controller
 
     public function create()
     {
-        $malls = Mall::where('is_show', 1)->get();
+        $malls = Mall::all();
         return view('admin.create', compact('malls'));
     }
 
@@ -35,7 +35,7 @@ class AdminController extends Controller
 
     public function edit($id)
     {
-        $malls = Mall::where('is_show', 1)->get();
+        $malls = Mall::all();
         $product = Product::find($id);
         return view('admin.edit', compact('product', 'malls'));
     }
