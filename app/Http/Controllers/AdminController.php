@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Order;
+use App\Product;
+use Illuminate\Http\Request;
+
+class AdminController extends Controller
+{
+    public function index()
+    {
+        $products = Product::where('is_show', 1)->get();
+        $orders = Order::all();
+        foreach ($orders as $key => $value) {
+            $pros = json_decode($value->products);
+            foreach ($pros as $k => $val) {
+                $orders[$key]['pro_text'] .= '['.$val->product->name.'×'.$val->total_num.']';
+            }
+        }
+
+        return view('admin.index', compact('products', 'orders'));
+    }
+
+    public function create()
+    {
+        return view('admin.create');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $data['description'] = '暂时没有描述';
+        $create = Product::create($data);
+        if ($create) {
+            return redirect(route('admin.index'))->with('success', '添加成功');
+        } else {
+            return back()->with('success', '添加失败!!');
+        }
+
+    }
+
+
+    public function edit($id)
+    {
+        $product = Product::find($id);
+        return view('admin.edit', compact('product'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = Product::whereId($id)->update($request->except('_token', '_method'));
+        if ($product) {
+            return redirect(route('admin.index'))->with('success', '更新成功');
+        } else {
+            return back()->with('success', '更新失败!！！!');
+        }
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::destroy($id);
+        if ($product) {
+            return redirect(route('admin.index'))->with('success', '删除成功');
+        } else {
+            return redirect(route('admin.index'))->with('success', '删除失败！！！！');
+        }
+
+    }
+
+    public function pay(Request $request, $id)
+    {
+        $pay = Order::find($id)->update(['pay_time' => now()->toDateTimeString()]);
+        if ($pay) {
+            return back()->with('success', '操作付款成功');
+        } else {
+            return back()->with('success', '操作付款失败！！！！');
+        }
+    }
+
+    public function pay_back(Request $request,$id)
+    {
+        $pay = Order::find($id)->update(['pay_time' => null]);
+        if ($pay) {
+            return back()->with('success', '取消付款成功');
+        } else {
+            return back()->with('success', '取消付款失败！！！！');
+        }
+    }
+
+
+}
