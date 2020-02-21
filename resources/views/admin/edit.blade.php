@@ -16,6 +16,14 @@
                             @csrf
                             @method('put')
                             <div class="form-group">
+                                <label for="exampleInputPassword1">所属商家</label>
+                                <select class="form-control" id="exampleFormControlSelect1" name="mall_id">
+                                    @foreach($malls as $mall)
+                                        <option value="{{ $mall->id }}" @if($product->mall_id ==$mall->id) selected @endif>{{ $mall->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="exampleInputPassword1">商品名称</label>
                                 <input type="text" class="form-control" name="name" id="exampleInputPassword1" value="{{ $product->name }}"  required>
                             </div>

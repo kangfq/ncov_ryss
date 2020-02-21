@@ -17,6 +17,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">商家名称</th>
                                 <th scope="col">套餐名称</th>
                                 <th scope="col">套餐单价</th>
                                 <th scope="col">操作</th>
@@ -26,6 +27,7 @@
                             @foreach($products as $product)
                                 <tr>
                                     <th scope="row">{{ $product->id }}</th>
+                                    <th scope="row">{{ $product->mall->name }}</th>
                                     <td>{{ $product->name }}</td>
                                     <td>￥{{ $product->money }}</td>
                                     <td><a href="{{ route('admin.edit',$product->id) }}">编辑</a> /

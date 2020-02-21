@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mall;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class AdminController extends Controller
 
     public function create()
     {
-        return view('admin.create');
+        $malls=Mall::where('is_show',1)->get();
+        return view('admin.create',compact('malls'));
     }
 
     public function store(Request $request)
@@ -33,8 +35,9 @@ class AdminController extends Controller
 
     public function edit($id)
     {
+        $malls=Mall::where('is_show',1)->get();
         $product = Product::find($id);
-        return view('admin.edit', compact('product'));
+        return view('admin.edit', compact('product','malls'));
     }
 
     public function update(Request $request, $id)
@@ -85,10 +88,10 @@ class AdminController extends Controller
     }
 
 
-    //订单管理
+    //麦德龙订单管理
     public function order()
     {
-        $orders = Order::all();
+        $orders = Order::with('mall')->where('mall_id',1)->get();
         foreach ($orders as $key => $value) {
             $pros = json_decode($value->products);
             foreach ($pros as $k => $val) {
@@ -96,5 +99,18 @@ class AdminController extends Controller
             }
         }
         return view('admin.order',compact('orders'));
+    }
+
+    public function zborder()
+    {
+        $orders = Order::with('mall')->where('mall_id',2)->get();
+        foreach ($orders as $key => $value) {
+            $pros = json_decode($value->products);
+            foreach ($pros as $k => $val) {
+                $orders[$key]['pro_text'] .= '['.$val->product->name.'×'.$val->total_num.']';
+            }
+        }
+        return view('admin.order',compact('orders'));
+
     }
 }

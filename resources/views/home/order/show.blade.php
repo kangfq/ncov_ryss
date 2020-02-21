@@ -16,6 +16,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">订单号</th>
+                                <th scope="col">商家</th>
                                 <th scope="col">下单时间</th>
                                 <th scope="col">商品</th>
                                 <th scope="col">订单总金额</th>
@@ -28,6 +29,7 @@
                             <tbody>
                             <tr>
                                 <th scope="row">{{ $order->id }}</th>
+                                <th scope="row">{{ $order->mall->name }}</th>
                                 <th scope="row">{{ $order->created_at }}</th>
                                 <td>{{ $pro_text }}</td>
                                 <td>￥{{ $order->total_money }}</td>

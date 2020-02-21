@@ -14,11 +14,12 @@
                         个人中心
                     </div>
                     <div class="card-body" style="color: red;">
-                       本系统只可以订盘龙城麦德龙商城的菜,请大家注意!
+                       本系统只可以订盘龙城麦德龙和天纵城中百的菜,请大家注意!
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a href="{{ route('address.index') }}">收货信息管理</a></li>
-                        <li class="list-group-item"><a href="{{ route('order.create') }}">开始订菜</a></li>
+                        <li class="list-group-item"><a href="{{ route('order.create') }}">开始订菜[麦德龙]</a></li>
+                        <li class="list-group-item"><a href="{{ route('order.zbcreate') }}">开始订菜[中百]</a></li>
                         <li class="list-group-item"><a href="{{ route('order.index') }}">订单查看</a></li>
                     </ul>
                 </div>

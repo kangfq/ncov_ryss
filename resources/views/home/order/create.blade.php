@@ -11,10 +11,10 @@
 
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header"><a
-                                href="{{ route('home') }}">个人中心</a> / 开始订菜 / <a href="/vendor/product.png"
-                                                                                target="_blank">查看菜单</a></div>
-
+                    <div class="card-header">[@if($mall_id ==1) 麦德龙订菜 @else 中百订菜@endif] / <a
+                                href="{{ route('home') }}">个人中心</a> / <a href="{{ route('order.create') }}">麦德龙订菜</a> / <a href="/vendor/product.png"
+                                                                                target="_blank">麦德龙菜单</a> / <a
+                                href="{{ route('order.zbcreate') }}">中百订菜</a></div>
                     <div class="card-body">
                         <form action="{{route('cart.store')}}" method="post">
                             @csrf
@@ -37,6 +37,7 @@
                                     <option value="5">5</option>
                                 </select>
                             </div>
+                            <input type="hidden" value="{{ $mall_id }}" name="mall_id">
                             <div class="form-text text-muted" style="color: red!important;">
                                 可以通过多次提交把商品加入购物车,加入完毕后请提交订单。
                             </div>
@@ -47,7 +48,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">当前购物车</div>
+                    <div class="card-header">@if($mall_id ==1) 麦德龙@else 中百@endif购物车</div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
@@ -86,6 +87,7 @@
                         <div class="card-header">
                             <form action="{{ route('order.store') }}" method="post">
                                 @csrf
+                                <input type="hidden" value="{{ $mall_id }}" name="mall_id">
                                 <button type="submit" class="btn btn-danger">提交订单</button>
                             </form>
                         </div>

@@ -36,7 +36,8 @@ Route::prefix('address')->name('address.')->group(function () {
 //订单管理
 Route::prefix('order')->name('order.')->group(function () {
     Route::get('/', 'OrderController@index')->name('index');
-    Route::get('/create', 'OrderController@create')->name('create');
+    Route::get('create', 'OrderController@create')->name('create');
+    Route::get('zbcreate', 'OrderController@zbcreate')->name('zbcreate');
     Route::post('store', 'OrderController@store')->name('store');
     Route::get('show/{id}', 'OrderController@show')->name('show');
     Route::post('success/{id}', 'OrderController@success')->name('success');
@@ -67,6 +68,7 @@ Route::prefix('admin')->middleware('auth','admin')->name('admin.')->group(functi
     Route::post('pay_back/{id}', 'AdminController@pay_back')->name('pay_back');
     Route::get('product', 'AdminController@product')->name('product');
     Route::get('order', 'AdminController@order')->name('order');
+    Route::get('zborder', 'AdminController@zborder')->name('zborder');
 });
 
 

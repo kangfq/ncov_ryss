@@ -23,27 +23,50 @@ class OrderController extends Controller
         return view('home.order.index', compact('orders'));
     }
 
+    //麦德龙
     public function create()
     {
+        $mall_id = 1;
         $address = Address::where('user_id', Auth::id())->first();
         if (is_null($address)) {
             return redirect(route('address.index'))->with('success', '请先添加姓名和电话再订菜');
         }
         //购物车数量
-        $carts = Cart::where('user_id', Auth::id())->get();
+        $carts = Cart::where('user_id', Auth::id())->where('mall_id', 1)->get();
         //购物车总金额
         $total_price = 0;
         foreach ($carts as $key => $value) {
             $total_price += $value->product->money * $value->total_num;
         }
         //添加商品
-        $products = Product::where('is_show', 1)->get();
-        return view('home.order.create', compact('products', 'carts', 'total_price'));
+        $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
+        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id'));
+    }
+
+    //中百
+    public function zbcreate()
+    {
+        $mall_id = 2;
+        $address = Address::where('user_id', Auth::id())->first();
+        if (is_null($address)) {
+            return redirect(route('address.index'))->with('success', '请先添加姓名和电话再订菜');
+        }
+        //购物车数量
+        $carts = Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->get();
+        //购物车总金额
+        $total_price = 0;
+        foreach ($carts as $key => $value) {
+            $total_price += $value->product->money * $value->total_num;
+        }
+        //添加商品
+        $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
+        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id'));
     }
 
     public function store(Request $request)
     {
-        $carts = Cart::where('user_id', Auth::id())->get();
+        $mall_id = $request->input('mall_id');
+        $carts = Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->get();
 
         //购物车总金额
         $total_price = 0;
@@ -58,11 +81,12 @@ class OrderController extends Controller
         $data['products'] = json_encode($carts->toArray());
         $data['total_money'] = $total_price;
         $data['total_num'] = array_sum($carts->pluck('total_num')->toArray());
+        $data['mall_id'] = $mall_id;
 
         $order = Order::create($data);
 
         if ($order) {
-            Cart::where('user_id', Auth::id())->delete();
+            Cart::where('user_id', Auth::id())->where('mall_id',$mall_id)->delete();
             return redirect(route('order.show', $order->id))->with('success', '提交订单成功,请联系志愿者进行转账。');
         } else {
             return back()->with('success', '提交订单失败!!!!!');
@@ -71,7 +95,7 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Order::where('user_id', Auth::id())->where('id', $id)->first();
+        $order = Order::with('mall')->where('user_id', Auth::id())->where('id', $id)->first();
         $products = json_decode($order->products);
         $pro_text = null;
         foreach ($products as $key => $value) {
@@ -86,7 +110,7 @@ class OrderController extends Controller
     }
 
     //确认收货
-    public function success(Request $request,$id)
+    public function success(Request $request, $id)
     {
         $order = Order::where('user_id', Auth::id())->where('id', $id)->first();
         if (is_null($order->pay_time)) {

@@ -13,13 +13,15 @@ class CartController extends Controller
         $data['product_id'] = $request->input('product_id');
         $data['total_num'] = $request->input('num');
         $data['user_id'] = Auth::id();
+        $data['mall_id'] = $request->input('mall_id');
 
         //看购物车是否有此商品
         $carts = Cart::where('user_id', Auth::id())->where('product_id', $data['product_id'])->first();
         if ($carts) {
             //改变之前商品的数量即可
             $num = $carts->total_num + $data['total_num'];
-            $update = Cart::where('user_id', Auth::id())->where('product_id', $data['product_id'])->update(['total_num'=>$num]);
+            $update = Cart::where('user_id', Auth::id())->where('product_id',
+                $data['product_id'])->update(['total_num' => $num]);
             if ($update) {
                 return back()->with('success', '加入购物车成功！');
             } else {

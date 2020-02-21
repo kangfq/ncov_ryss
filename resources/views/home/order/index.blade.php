@@ -15,7 +15,8 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th scope="col">订单号11</th>
+                                <th scope="col">订单号</th>
+                                <th scope="col">商家</th>
                                 <th scope="col">姓名</th>
                                 <th scope="col">手机号码</th>
                                 <th scope="col">下单时间</th>
@@ -31,6 +32,7 @@
                             @foreach($orders as $order)
                                 <tr>
                                     <th scope="row">{{ $order['id'] }}</th>
+                                    <th scope="row">{{ $order['mall']->name }}</th>
                                     <th scope="row">{{ $order['name'] }}</th>
                                     <th scope="row">{{ $order['tel'] }}</th>
                                     <th scope="row">{{ $order['created_at'] }}</th>
