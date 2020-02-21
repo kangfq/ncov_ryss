@@ -31,7 +31,6 @@ class AdminController extends Controller
 
     }
 
-
     public function edit($id)
     {
         $product = Product::find($id);
@@ -85,6 +84,8 @@ class AdminController extends Controller
         return view('admin.product',compact('products'));
     }
 
+
+    //订单管理
     public function order()
     {
         $orders = Order::all();

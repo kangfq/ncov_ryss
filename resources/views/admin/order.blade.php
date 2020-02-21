@@ -40,16 +40,13 @@
                                             <a href="javascript:;" onclick="document.getElementById('pay_{{$order['id']}}').submit()">
                                                 <button type="button" class="btn btn-sm btn-danger">确认付款</button>
                                             </a>@else {{ $order['pay_time'] }} / <a href="javascript:;" onclick="document.getElementById('pay_back_{{$order['id']}}').submit()">取消</a> @endif</td>
-
                                     <td>@if($order['is_success']===0) 未确认 @else 已确认  @endif</td>
                                 </tr>
                                 <div style="display: none;">
-                                    <form action="{{ route('admin.pay',$order['id']) }}" method="post"
-                                          id="pay_{{ $order['id'] }}">
+                                    <form action="{{ route('admin.pay',$order['id']) }}" method="post" id="pay_{{ $order['id'] }}">
                                         @csrf
                                     </form>
-                                    <form action="{{ route('admin.pay_back',$order['id']) }}" method="post"
-                                          id="pay_back_{{ $order['id'] }}">
+                                    <form action="{{ route('admin.pay_back',$order['id']) }}" method="post" id="pay_back_{{ $order['id'] }}">
                                         @csrf
                                     </form>
                                 </div>
