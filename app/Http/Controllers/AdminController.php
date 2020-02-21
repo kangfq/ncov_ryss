@@ -10,16 +10,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $products = Product::where('is_show', 1)->get();
-        $orders = Order::all();
-        foreach ($orders as $key => $value) {
-            $pros = json_decode($value->products);
-            foreach ($pros as $k => $val) {
-                $orders[$key]['pro_text'] .= '['.$val->product->name.'×'.$val->total_num.']';
-            }
-        }
-
-        return view('admin.index', compact('products', 'orders'));
+        return view('admin.index');
     }
 
     public function create()
@@ -33,7 +24,7 @@ class AdminController extends Controller
         $data['description'] = '暂时没有描述';
         $create = Product::create($data);
         if ($create) {
-            return redirect(route('admin.index'))->with('success', '添加成功');
+            return redirect(route('admin.product'))->with('success', '添加成功');
         } else {
             return back()->with('success', '添加失败!!');
         }
@@ -51,7 +42,7 @@ class AdminController extends Controller
     {
         $product = Product::whereId($id)->update($request->except('_token', '_method'));
         if ($product) {
-            return redirect(route('admin.index'))->with('success', '更新成功');
+            return redirect(route('admin.product'))->with('success', '更新成功');
         } else {
             return back()->with('success', '更新失败!！！!');
         }
@@ -61,9 +52,9 @@ class AdminController extends Controller
     {
         $product = Product::destroy($id);
         if ($product) {
-            return redirect(route('admin.index'))->with('success', '删除成功');
+            return redirect(route('admin.product'))->with('success', '删除成功');
         } else {
-            return redirect(route('admin.index'))->with('success', '删除失败！！！！');
+            return redirect(route('admin.product'))->with('success', '删除失败！！！！');
         }
 
     }
@@ -78,7 +69,7 @@ class AdminController extends Controller
         }
     }
 
-    public function pay_back(Request $request,$id)
+    public function pay_back(Request $request, $id)
     {
         $pay = Order::find($id)->update(['pay_time' => null]);
         if ($pay) {
@@ -88,5 +79,21 @@ class AdminController extends Controller
         }
     }
 
+    public function product()
+    {
+        $products = Product::where('is_show', 1)->get();
+        return view('admin.product',compact('products'));
+    }
 
+    public function order()
+    {
+        $orders = Order::all();
+        foreach ($orders as $key => $value) {
+            $pros = json_decode($value->products);
+            foreach ($pros as $k => $val) {
+                $orders[$key]['pro_text'] .= '['.$val->product->name.'×'.$val->total_num.']';
+            }
+        }
+        return view('admin.order',compact('orders'));
+    }
 }

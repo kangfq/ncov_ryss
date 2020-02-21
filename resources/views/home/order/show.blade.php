@@ -30,7 +30,7 @@
                                 <th scope="row">{{ $order->id }}</th>
                                 <th scope="row">{{ $order->created_at }}</th>
                                 <td>{{ $pro_text }}</td>
-                                <td>{{ $order->total_money }}</td>
+                                <td>￥{{ $order->total_money }}</td>
                                 <td>{{ $order->total_num }}</td>
                                 <td>{{ $order->pay_time }}</td>
                                 <td>@if($order->is_success===0) <a href="javascript:;">

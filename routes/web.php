@@ -64,6 +64,8 @@ Route::prefix('admin')->middleware('auth','admin')->name('admin.')->group(functi
     Route::delete('destroy/{id}', 'AdminController@destroy')->name('destroy');
     Route::post('pay/{id}', 'AdminController@pay')->name('pay');
     Route::post('pay_back/{id}', 'AdminController@pay_back')->name('pay_back');
+    Route::get('product', 'AdminController@product')->name('product');
+    Route::get('order', 'AdminController@order')->name('order');
 });
 
 
