@@ -38,7 +38,7 @@
                                     <td>￥{{ $order['total_money'] }}</td>
                                     <td>@if(is_null($order['pay_time']))
                                             <a href="javascript:;" onclick="document.getElementById('pay_{{$order['id']}}').submit()">
-                                                <button type="button" class="btn btn-sm btn-danger">确认付款</button>
+                                                <button type="button" class="btn btn-sm btn-danger">确认收款</button>
                                             </a>@else {{ $order['pay_time'] }} / <a href="javascript:;" onclick="document.getElementById('pay_back_{{$order['id']}}').submit()">取消</a> @endif</td>
                                     <td>@if($order['is_success']===0) 未确认 @else 已确认  @endif</td>
                                 </tr>
