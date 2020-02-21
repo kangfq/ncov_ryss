@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->char('name');
             $table->char('tel');
             $table->text('products');
-            $table->decimal('total_money');
+            $table->decimal('total_money',10,2);
             $table->integer('total_num');
             $table->timestamp('pay_time')->nullable();
             $table->boolean('is_success')->default(0)->comment('确认收货');

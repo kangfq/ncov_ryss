@@ -19,8 +19,8 @@
                                 <input type="text" class="form-control" name="name" id="exampleInputPassword1" required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">商品金额</label>
-                                <input type="text" class="form-control" id="exampleInputPassword1" name="money">
+                                <label for="exampleInputPassword2">商品金额</label>
+                                <input type="text" class="form-control" id="exampleInputPassword2" name="money">
                             </div>
                             <button type="submit" class="btn btn-primary">提交</button>
                         </form>
