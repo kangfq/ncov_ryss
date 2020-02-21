@@ -21,7 +21,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">商品金额</label>
-                                <input type="number" class="form-control" id="exampleInputPassword1" name="money" value="{{ $product->money }}" max="9999" min="1">
+                                <input type="text" class="form-control" id="exampleInputPassword1" name="money" value="{{ $product->money }}" max="9999" min="1">
                             </div>
                             <button type="submit" class="btn btn-primary">提交</button>
                         </form>
