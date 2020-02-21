@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use App\Cart;
+use App\Mall;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class OrderController extends Controller
     //麦德龙
     public function create()
     {
+        $state=Mall::find(1)->is_show;
         $mall_id = 1;
         $address = Address::where('user_id', Auth::id())->first();
         if (is_null($address)) {
@@ -40,12 +42,13 @@ class OrderController extends Controller
         }
         //添加商品
         $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
-        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id'));
+        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id','state'));
     }
 
     //中百
     public function zbcreate()
     {
+        $state=Mall::find(2)->is_show;
         $mall_id = 2;
         $address = Address::where('user_id', Auth::id())->first();
         if (is_null($address)) {
@@ -60,7 +63,7 @@ class OrderController extends Controller
         }
         //添加商品
         $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
-        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id'));
+        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id','state'));
     }
 
     public function store(Request $request)

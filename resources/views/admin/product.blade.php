@@ -20,6 +20,7 @@
                                 <th scope="col">商家名称</th>
                                 <th scope="col">套餐名称</th>
                                 <th scope="col">套餐单价</th>
+                                <th scope="col">库存数量</th>
                                 <th scope="col">操作</th>
                             </tr>
                             </thead>
@@ -30,6 +31,7 @@
                                     <th scope="row">{{ $product->mall->name }}</th>
                                     <td>{{ $product->name }}</td>
                                     <td>￥{{ $product->money }}</td>
+                                    <td>{{ $product->stock }}</td>
                                     <td><a href="{{ route('admin.edit',$product->id) }}">编辑</a> /
                                         <a href="javascript:;"
                                            onclick="document.getElementById('product_{{$product->id}}').submit()">删除</a>
@@ -42,7 +44,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
                             @endforeach
                             </tbody>
                         </table>

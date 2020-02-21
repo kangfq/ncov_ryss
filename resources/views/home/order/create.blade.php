@@ -7,13 +7,19 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if($state==0)
+            <div class="alert alert-danger" role="alert">
+                @if($mall_id ==1) 麦德龙 @else 中百@endif暂时未开放订菜，请留意群内通知！
+            </div>
+        @endif
         <div class="row justify-content-center">
-
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">[@if($mall_id ==1) 麦德龙订菜 @else 中百订菜@endif] / <a
-                                href="{{ route('home') }}">个人中心</a> / <a href="{{ route('order.create') }}">麦德龙订菜</a> / <a href="/vendor/product.png"
-                                                                                target="_blank">麦德龙菜单</a> / <a
+                                href="{{ route('home') }}">个人中心</a> / <a
+                                href="{{ route('order.create') }}">麦德龙订菜</a> /
+                        <a href="/vendor/product.png"
+                           target="_blank">麦德龙菜单</a> / <a
                                 href="{{ route('order.zbcreate') }}">中百订菜</a></div>
                     <div class="card-body">
                         <form action="{{route('cart.store')}}" method="post">
@@ -22,8 +28,9 @@
                                 <label for="exampleFormControlSelect1">选择商品</label>
                                 <select class="form-control" id="exampleFormControlSelect1" name="product_id">
                                     @foreach($products as $product)
-                                        <option value="{{ $product->id }}">{{ $product->name }}
-                                            ￥{{ $product->money }}</option>
+                                        <option value="{{ $product->id }}"
+                                                @if($product->stock<=0) disabled @endif>{{ $product->name }} /
+                                            ￥{{ $product->money }} / 库存剩余{{ $product->stock }} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -41,7 +48,14 @@
                             <div class="form-text text-muted" style="color: red!important;">
                                 可以通过多次提交把商品加入购物车,加入完毕后请提交订单。
                             </div>
-                            <button type="submit" class="btn btn-primary">加入购物车</button>
+                            @if($state==0)
+                                <div class="alert alert-danger" role="alert">
+                                    @if($mall_id ==1) 麦德龙 @else 中百@endif暂时未开放订菜，请留意群内通知！
+                                </div>
+                            @endif
+                            @if($state==1)
+                                <button type="submit" class="btn btn-primary">加入购物车</button>
+                            @endif
                         </form>
                     </div>
                 </div>
@@ -71,13 +85,13 @@
                                     <td>￥{{ $cart->total_num * $cart->product->money }}</td>
                                     <td><a href="javascript:;"
                                            onclick="document.getElementById('del_{{ $cart->id}}').submit()">删除</a>
-                                    <div style="display: none">
-                                        <form action="{{ route('cart.destroy',$cart->id) }}" method="post"
-                                              id="del_{{ $cart->id }}">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
-                                    </div>
+                                        <div style="display: none">
+                                            <form action="{{ route('cart.destroy',$cart->id) }}" method="post"
+                                                  id="del_{{ $cart->id }}">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -88,7 +102,14 @@
                             <form action="{{ route('order.store') }}" method="post">
                                 @csrf
                                 <input type="hidden" value="{{ $mall_id }}" name="mall_id">
-                                <button type="submit" class="btn btn-danger">提交订单</button>
+                                @if($state==0)
+                                    <div class="alert alert-danger" role="alert">
+                                        @if($mall_id ==1) 麦德龙 @else 中百@endif暂时未开放订菜，请留意群内通知！
+                                    </div>
+                                @endif
+                                @if($state==1)
+                                    <button type="submit" class="btn btn-danger">提交订单</button>
+                                @endif
                             </form>
                         </div>
                     </div>

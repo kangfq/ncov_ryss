@@ -69,6 +69,7 @@ Route::prefix('admin')->middleware('auth','admin')->name('admin.')->group(functi
     Route::get('product', 'AdminController@product')->name('product');
     Route::get('order', 'AdminController@order')->name('order');
     Route::get('zborder', 'AdminController@zborder')->name('zborder');
+    Route::post('trigger/{id}', 'AdminController@trigger')->name('trigger');
 });
 
 
