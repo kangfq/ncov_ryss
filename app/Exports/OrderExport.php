@@ -26,6 +26,7 @@ class OrderExport implements FromArray, WithHeadings
     public function headings(): array
     {
         return [
+            '订单号',
             '姓名',
             '电话',
             '订单金额',

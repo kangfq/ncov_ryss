@@ -226,7 +226,7 @@ class OrderController extends Controller
                 $orders[$key]['pro_text'] .= '['.$val->product->name.'×'.$val->total_num.']';
                 $orders[$key]['mall_name'] = $value->mall->name;
             }
-            unset ($value['mall'], $value['products'], $value['id'],$value['user_id'],$value['deleted_at'],$value['updated_at'],$value['mall_id']);
+            unset ($value['mall'], $value['products'],$value['user_id'],$value['deleted_at'],$value['updated_at'],$value['mall_id']);
         }
         return Excel::download(new OrderExport($orders->toArray()), 'order_'.time().'.xlsx');
     }
