@@ -82,9 +82,9 @@
                                 </a>
                             @endif
                             <div style="float: right;">
-                                <a href="{{ route('order.export_order') }}">
-                                    <button type="button" class="btn btn-danger btn-sm">导出到Excel</button>
-                                </a>
+{{--                                <a href="{{ route('order.export_order') }}">--}}
+{{--                                    <button type="button" class="btn btn-danger btn-sm">导出到Excel</button>--}}
+{{--                                </a>--}}
                                 <button type="button" class="btn btn-danger btn-sm" onclick="window.print();">打印本页
                                 </button>
                             </div>

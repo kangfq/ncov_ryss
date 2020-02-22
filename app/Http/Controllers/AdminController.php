@@ -138,7 +138,7 @@ class AdminController extends Controller
             ->where($p_time)
             ->where($p_state)
             ->where($success)
-            ->paginate(15);
+            ->paginate(10);
 
         //汇总信息
         $orders_count = Order::with('mall')->where('mall_id', 2)
