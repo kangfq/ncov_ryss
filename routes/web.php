@@ -29,45 +29,47 @@ Route::prefix('info')->name('info.')->group(function () {
     Route::get('zb', 'InfoController@zb')->name('zb');
 });
 
+Route::middleware('auth')->group(function () {
 //地址管理
-Route::prefix('address')->name('address.')->group(function () {
-    Route::get('/', 'AddressController@index')->name('index');
-    Route::post('store', 'AddressController@store')->name('store');
-});
+    Route::prefix('address')->name('address.')->group(function () {
+        Route::get('/', 'AddressController@index')->name('index');
+        Route::post('store', 'AddressController@store')->name('store');
+    });
 
 //订单管理
-Route::prefix('order')->name('order.')->group(function () {
-    Route::get('/', 'OrderController@index')->name('index');
-    Route::get('create', 'OrderController@create')->name('create');
-    Route::get('zbcreate', 'OrderController@zbcreate')->name('zbcreate');
-    Route::post('store', 'OrderController@store')->name('store');
-    Route::get('show/{id}', 'OrderController@show')->name('show');
-    Route::post('success/{id}', 'OrderController@success')->name('success');
-    Route::delete('destroy/{id}', 'OrderController@destroy')->name('destroy');
-});
+    Route::prefix('order')->name('order.')->group(function () {
+        Route::get('/', 'OrderController@index')->name('index');
+        Route::get('create', 'OrderController@create')->name('create');
+        Route::get('zbcreate', 'OrderController@zbcreate')->name('zbcreate');
+        Route::post('store', 'OrderController@store')->name('store');
+        Route::get('show/{id}', 'OrderController@show')->name('show');
+        Route::post('success/{id}', 'OrderController@success')->name('success');
+        Route::delete('destroy/{id}', 'OrderController@destroy')->name('destroy');
+        Route::get('export_order', 'OrderController@export_order')->middleware('admin')->name('export_order');
+    });
 //商品管理
-Route::prefix('product')->name('product.')->group(function () {
-    Route::get('/', 'productController@index')->name('index');
-    Route::get('/create', 'productController@create')->name('create');
-    Route::post('store', 'productController@store')->name('store');
-});
+    Route::prefix('product')->name('product.')->group(function () {
+        Route::get('/', 'productController@index')->name('index');
+        Route::get('/create', 'productController@create')->name('create');
+        Route::post('store', 'productController@store')->name('store');
+    });
 //购物车
-Route::prefix('cart')->name('cart.')->group(function () {
-    Route::post('store', 'CartController@store')->name('store');
-    Route::delete('destroy/{id}', 'CartController@destroy')->name('destroy');
+    Route::prefix('cart')->name('cart.')->group(function () {
+        Route::post('store', 'CartController@store')->name('store');
+        Route::delete('destroy/{id}', 'CartController@destroy')->name('destroy');
+    });
 });
-
 
 //后台管理
-Route::prefix('admin')->middleware('auth','admin')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware('auth', 'admin')->name('admin.')->group(function () {
     Route::get('/', 'AdminController@index')->name('index');
     Route::get('create', 'AdminController@create')->name('create');
     Route::post('store', 'AdminController@store')->name('store');
     Route::get('edit/{id}', 'AdminController@edit')->name('edit');
     Route::put('update/{id}', 'AdminController@update')->name('update');
     Route::delete('destroy/{id}', 'AdminController@destroy')->name('destroy');
-    Route::post('pay/{id}', 'AdminController@pay')->name('pay');
-    Route::post('pay_back/{id}', 'AdminController@pay_back')->name('pay_back');
+    Route::post('pay', 'AdminController@pay')->name('pay');
+    Route::post('pay_back', 'AdminController@pay_back')->name('pay_back');
     Route::get('product', 'AdminController@product')->name('product');
     Route::get('order', 'AdminController@order')->name('order');
     Route::get('zborder', 'AdminController@zborder')->name('zborder');

@@ -20,7 +20,8 @@
                                 href="{{ route('order.create') }}">麦德龙订菜</a> /
                         <a href="{{ route('info.mdl') }}"
                            target="_blank">麦德龙菜单</a> / <a
-                                href="{{ route('order.zbcreate') }}">中百订菜</a> / <a href="{{ route('info.zb') }}" target="_blank">中百菜单</a></div>
+                                href="{{ route('order.zbcreate') }}">中百订菜</a> / <a href="{{ route('info.zb') }}"
+                                                                                   target="_blank">中百菜单</a></div>
                     <div class="card-body">
                         <form action="{{route('cart.store')}}" method="post">
                             @csrf
@@ -108,7 +109,7 @@
                                     </div>
                                 @endif
                                 @if($state==1)
-                                    <button type="submit" class="btn btn-danger">提交订单</button>
+                                    <button type="submit" class="btn btn-danger" id="submit">提交订单</button>
                                 @endif
                             </form>
                         </div>
@@ -117,4 +118,6 @@
             </div>
         </div>
     </div>
+
+
 @endsection

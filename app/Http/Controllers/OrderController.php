@@ -10,12 +10,14 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Exports\OrderExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::where('user_id', Auth::id())->get();
+        $orders = Order::where('user_id', Auth::id())->paginate(10);
         foreach ($orders as $key => $value) {
             $products = json_decode($value->products);
             foreach ($products as $k => $val) {
@@ -71,7 +73,14 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $mall_id = $request->input('mall_id');
+        $is_show = Mall::find($mall_id)->is_show;
+        if (!$is_show) {
+            return back()->with('success', '系统已经关闭,订单提交失败!!!');
+        }
         $carts = Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->get();
+        if ($carts->count() == 0) {
+            return back()->with('success', '购物车为空,订单提交失败!!!');
+        }
 
         //购物车总金额
         $total_price = 0;
@@ -97,7 +106,7 @@ class OrderController extends Controller
                 foreach ($carts as $cart) {
                     $product = Product::find($cart->product_id);
                     //如果库存为负数则抛出异常
-                    if ($product->stock - $cart->total_mum < 0) {
+                    if ($product->stock - $cart->total_mum <= 0) {
                         throw new \Exception('当前商品'.$product->name.'库存不足，提交订单失败!');
                     }
                     Product::find($cart->product_id)->decrement('stock', $cart->total_num);
@@ -109,6 +118,7 @@ class OrderController extends Controller
         return redirect(route('order.index'))->with('success', '提交订单成功,请联系志愿者进行转账。');
     }
 
+    //显示订单
     public function show($id)
     {
         $order = Order::with('mall')->where('user_id', Auth::id())->where('id', $id)->first();
@@ -140,12 +150,21 @@ class OrderController extends Controller
         }
     }
 
-    public function destroy($id)
+    //删除订单
+    public function destroy(Request $request, $id)
     {
+        //判断是否从后台发起删除请求
+        $is_admin = $request->input('is_admin');
         $order = Order::find($id);
+        if (is_null($order)) {
+            return back()->with('success', '订单不存在,可能已经被删除了!!!!');
+        }
         if (is_null($order->pay_time) && $order->is_success === 0) {
             $del = Order::destroy($id);
             if ($del) {
+                if ($is_admin) {
+                    return redirect(route('admin.order'))->with('success', '订单删除成功!');
+                }
                 return redirect(route('order.index'))->with('success', '订单删除成功!');
             } else {
                 return back()->with('success', '订单删除失败!!!!!');
@@ -153,6 +172,12 @@ class OrderController extends Controller
         } else {
             return back()->with('success', '订单已经支付或者已经收货，无法删除！！！');
         }
+    }
+
+    //导出订单
+    public function export_order(Request $request)
+    {
+        return Excel::download(new OrderExport, 'order_'.time().'.xlsx');
     }
 
 }

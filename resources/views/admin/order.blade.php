@@ -14,9 +14,11 @@
                             中百@endif订单信息
                         <div style="display: inline-block;float: right;">
                             @if($state==1)
-                                <button type="button" class="btn btn-sm btn-success" style="cursor: default;">当前状态：接单中</button>
+                                <button type="button" class="btn btn-sm btn-success" style="cursor: default;">当前状态：接单中
+                                </button>
                             @else
-                                <button type="button" class="btn btn-sm btn-dark" style="cursor: default;">当前状态：休息中</button>
+                                <button type="button" class="btn btn-sm btn-dark" style="cursor: default;">当前状态：休息中
+                                </button>
                             @endif
                             <button type="button" class="btn btn-sm btn-dark"
                                     onclick="document.getElementById('end').submit();">停止接单
@@ -68,11 +70,24 @@
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">筛选</button>
-                            <a href="{{ route('admin.order') }}">
-                                <button type="button" class="btn btn-primary">重置</button>
-                            </a>
-                            <button type="button" class="btn btn-danger" onclick="window.print();">打印本页</button>
+                            <button type="submit" class="btn btn-primary btn-sm">筛选</button>
+                            @if($mall_id==1)
+                                <a href="{{ route('admin.order') }}">
+                                    <button type="button" class="btn btn-primary btn-sm">重置</button>
+                                </a>
+                            @endif
+                            @if($mall_id==2)
+                                <a href="{{ route('admin.zborder') }}">
+                                    <button type="button" class="btn btn-primary btn-sm">重置</button>
+                                </a>
+                            @endif
+                            <div style="float: right;">
+                                <a href="{{ route('order.export_order') }}">
+                                    <button type="button" class="btn btn-danger btn-sm">导出到Excel</button>
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="window.print();">打印本页
+                                </button>
+                            </div>
                         </form>
                     </div>
                     <div class="card-body">
@@ -87,14 +102,14 @@
                                 <th scope="col">商品详情</th>
                                 <th scope="col">总件数</th>
                                 <th scope="col">订单金额</th>
-                                <th scope="col">收款时间</th>
+                                <th scope="col">确认收款</th>
                                 <th scope="col">确认收货</th>
                                 <th scope="col">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($orders as $order)
-                                <tr>
+                                <tr data-id="{{ $order->id }}">
                                     <th>{{ $order['id'] }}</th>
                                     <th>{{ $order['mall']->name }}</th>
                                     <th>{{ $order['created_at'] }}</th>
@@ -104,36 +119,32 @@
                                     <td>{{ $order['total_num'] }}</td>
                                     <td>￥{{ $order['total_money'] }}</td>
                                     <td>@if(is_null($order['pay_time']))
-                                            <a href="javascript:;"
-                                               onclick="document.getElementById('pay_{{$order['id']}}').submit()">
-                                                <button type="button" class="btn btn-sm btn-danger">确认收款</button>
-                                            </a>@else {{ $order['pay_time'] }} / <a href="javascript:;"
-                                                                                    onclick="document.getElementById('pay_back_{{$order['id']}}').submit()">取消</a> @endif
+                                            <button type="button" class="btn btn-sm btn-danger pay">确认收款</button>
+                                        @else
+                                            <button type="button" class="btn btn-sm btn-dark pay_back">取消收款</button>
+                                        @endif
                                     </td>
-                                    <td>@if($order['is_success']===0) 未确认 @else 已确认  @endif</td>
-                                    <td><a href="javascript:;" onclick="document.getElementById('del_order_{{$order['id']}}').submit()">删除</a>
+                                    <td>@if($order['is_success']===0)
+                                            <button class="btn btn-secondary btn-sm" disabled>否</button>@else
+                                            <button class="btn btn-success btn-sm" disabled>是</button>  @endif</td>
+                                    <td><a href="javascript:;"
+                                           onclick="document.getElementById('del_order_{{$order['id']}}').submit()">删除</a>
                                         <form action="{{ route('order.destroy',$order['id']) }}" method="post"
                                               id="del_order_{{ $order['id'] }}">
                                             @csrf
                                             @method('delete')
+                                            <input type="hidden" name="is_admin" value="1">
                                         </form>
                                     </td>
                                 </tr>
-                                <div style="display: none;">
-                                    <form action="{{ route('admin.pay',$order['id']) }}" method="post"
-                                          id="pay_{{ $order['id'] }}">
-                                        @csrf
-                                    </form>
-                                    <form action="{{ route('admin.pay_back',$order['id']) }}" method="post"
-                                          id="pay_back_{{ $order['id'] }}">
-                                        @csrf
-                                    </form>
-                                </div>
+
                             @endforeach
                             </tbody>
                         </table>
+                        {{ $orders->appends(['created_at' => Request::input('created_at'),'pay_date'=>Request::input('pay_date'),'pay_state'=>Request::input('pay_state'),'is_success'=>Request::input('is_success')])->links() }}
                         <hr>
-                        <b>【汇总信息】订单数量：{{ $base['count'] }}，商品总件数：{{ $base['total_num'] }}件，订单总金额：{{ $base['total_money'] }}
+                        <b>【汇总信息】订单数量：{{ $base['count'] }}，商品总件数：{{ $base['total_num'] }}
+                            件，订单总金额：{{ $base['total_money'] }}
                             元，已收款{{ $base['total_pay_money'] }}元，已收货{{ $base['success_y'] }}
                             单，未收货{{ $base['success_n'] }}单。（疫情期间，请各位志愿者注意身体！）^_^</b>
                     </div>
@@ -141,4 +152,50 @@
             </div>
         </div>
     </div>
+@endsection
+@section('js')
+    <script type="text/javascript">
+        $(function () {
+            //确认收款
+            $(document).on("click", ".pay", function () {
+                let id = $(this).parents("tr").data("id");
+                let _this = $(this);
+                $.ajax({
+                    type: 'post',
+                    data: {id: id},
+                    url: "{{ route('admin.pay') }}",
+                    success: function (e) {
+                        if (e.state == 1) {
+                            alert(e.msg);
+                            _this.addClass("btn-dark").addClass("pay_back").removeClass("btn-danger").removeClass("pay");
+                            _this.text("取消收款")
+                        }
+                    },
+                    error: function (e) {
+                        alert('系统错误,操作失败..')
+                    }
+                })
+            });
+            // 取消收款
+            $(document).on("click", ".pay_back", function () {
+                let id = $(this).parents("tr").data("id");
+                let _this = $(this);
+                $.ajax({
+                    type: 'post',
+                    data: {id: id},
+                    url: "{{ route('admin.pay_back') }}",
+                    success: function (e) {
+                        if (e.state == 1) {
+                            alert(e.msg);
+                            _this.removeClass("btn-dark").removeClass("pay_back").addClass("btn-danger").addClass("pay");
+                            _this.text("确认收款")
+                        }
+                    },
+                    error: function (e) {
+                        alert('系统错误,操作失败..')
+                    }
+                })
+            });
+        })
+    </script>
 @endsection
