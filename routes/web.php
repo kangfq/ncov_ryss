@@ -71,9 +71,17 @@ Route::prefix('admin')->middleware('auth', 'admin')->name('admin.')->group(funct
     Route::post('pay', 'AdminController@pay')->name('pay');
     Route::post('pay_back', 'AdminController@pay_back')->name('pay_back');
     Route::get('product', 'AdminController@product')->name('product');
-    Route::get('order', 'AdminController@order')->name('order');
-    Route::get('zborder', 'AdminController@zborder')->name('zborder');
+    Route::get('order/{mall_id}', 'AdminController@order')->name('order');
+//    Route::get('zborder', 'AdminController@zborder')->name('zborder');
     Route::post('trigger/{id}', 'AdminController@trigger')->name('trigger');
+    Route::get('total_order/{mall_id}', 'AdminController@total_order')->name('total_order');
+
+    //订单回收站
+    Route::prefix('recycle')->name('recycle.')->group(function () {
+        Route::get('/{mall_id}', 'OrderRecycleController@index')->name('index');
+        Route::post('back_order', 'OrderRecycleController@back_order')->name('back_order');
+        Route::delete('destroy/{id}', 'OrderRecycleController@destroy')->name('destroy');
+    });
 });
 
 

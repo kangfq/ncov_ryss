@@ -71,22 +71,18 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm">筛选</button>
-                            @if($mall_id==1)
-                                <a href="{{ route('admin.order') }}">
+                                <a href="{{ route('admin.order',$mall_id) }}">
                                     <button type="button" class="btn btn-primary btn-sm">重置</button>
                                 </a>
-                            @endif
-                            @if($mall_id==2)
-                                <a href="{{ route('admin.zborder') }}">
-                                    <button type="button" class="btn btn-primary btn-sm">重置</button>
-                                </a>
-                            @endif
                             <div style="float: right;">
+                                <a href="{{ route('admin.recycle.index',$mall_id) }}"><button type="button" class="btn btn-sm btn-danger">订单回收站</button></a>
                                 <a href="{{ route('order.export_order',['id'=>$mall_id,'created_at'=>Request::input('created_at'),'pay_date'=>Request::input('pay_date'),'pay_state'=>Request::input('pay_state'),'is_success'=>Request::input('is_success')]) }}">
                                     <button type="button" class="btn btn-danger btn-sm">导出到Excel</button>
                                 </a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="window.print();">打印本页
                                 </button>
+                                <a href="{{ route('admin.total_order',$mall_id) }}"><button type="button" class="btn btn-danger btn-sm">商超报表
+                                </button></a>
                             </div>
                         </form>
                     </div>
@@ -111,8 +107,8 @@
                             @foreach($orders as $order)
                                 <tr data-id="{{ $order->id }}">
                                     <th>{{ $order['id'] }}</th>
-                                    <th>{{ $order['mall']->name }}</th>
-                                    <th>{{ $order['created_at'] }}</th>
+                                    <td>{{ $order['mall']->name }}</td>
+                                    <td>{{ $order['created_at'] }}</td>
                                     <td>{{ $order['name'] }}</td>
                                     <td>{{ $order['tel']}}</td>
                                     <td>{{ $order['pro_text'] }}</td>

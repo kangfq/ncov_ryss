@@ -86,6 +86,7 @@ class AdminController extends Controller
         }
     }
 
+    //商品管理
     public function product()
     {
         $products = Product::where('is_show', 1)->get();
@@ -93,10 +94,10 @@ class AdminController extends Controller
     }
 
 
-    //麦德龙订单管理
-    public function order(Request $request)
+    //订单管理
+    public function order(Request $request,$mall_id)
     {
-        $state = Mall::find(1)->is_show;
+        $state = Mall::find($mall_id)->is_show;
         $c_time = array();
         if ($request->input('created_at') != '') {
             $c_time = function ($query) use ($request) {
@@ -131,9 +132,8 @@ class AdminController extends Controller
                 $query->where('is_success', '=', 0);
             };
         }
-        $mall_id = 1;
         $orders = Order::with('mall')
-            ->where('mall_id', 1)
+            ->where('mall_id', $mall_id)
             ->where($c_time)
             ->where($p_time)
             ->where($p_state)
@@ -141,7 +141,7 @@ class AdminController extends Controller
             ->paginate(10);
 
         //汇总信息
-        $orders_count = Order::with('mall')->where('mall_id', 2)
+        $orders_count = Order::with('mall')->where('mall_id', $mall_id)
             ->where($c_time)
             ->where($p_time)
             ->where($p_state)
@@ -170,79 +170,6 @@ class AdminController extends Controller
         return view('admin.order', compact('orders', 'mall_id', 'base', 'state'));
     }
 
-    public function zborder(Request $request)
-    {
-        $state = Mall::find(2)->is_show;
-        $c_time = array();
-        if ($request->input('created_at') != '') {
-            $c_time = function ($query) use ($request) {
-                $query->whereDate('created_at', '=', $request->input('created_at'));
-            };
-        }
-        $p_time = array();
-        if ($request->input('pay_date') != '') {
-            $p_time = function ($query) use ($request) {
-                $query->whereDate('pay_time', '=', $request->input('pay_date'));
-            };
-        }
-        $p_state = array();
-        if ($request->input('pay_state') == 'y') {
-            $p_state = function ($query) use ($request) {
-                $query->whereNotNull('pay_time');
-            };
-        }
-        if ($request->input('pay_state') == 'n') {
-            $p_state = function ($query) use ($request) {
-                $query->whereNull('pay_time');
-            };
-        }
-        $success = array();
-        if ($request->input('is_success') == 'y') {
-            $success = function ($query) use ($request) {
-                $query->where('is_success', '=', 1);
-            };
-        }
-        if ($request->input('is_success') == 'n') {
-            $success = function ($query) use ($request) {
-                $query->where('is_success', '=', 0);
-            };
-        }
-        $mall_id = 2;
-        $orders = Order::with('mall')->where('mall_id', 2)
-            ->where($c_time)
-            ->where($p_time)
-            ->where($p_state)
-            ->where($success)
-            ->paginate(10);
-        //汇总信息
-        $orders_count = Order::with('mall')->where('mall_id', 2)
-            ->where($c_time)
-            ->where($p_time)
-            ->where($p_state)
-            ->where($success)
-            ->get();
-        $base['total_num'] = array_sum($orders_count->pluck('total_num')->toArray());
-        $base['total_money'] = array_sum($orders_count->pluck('total_money')->toArray());
-        $base['total_pay_money'] = 0;
-        $pay_moneys = $orders_count->pluck('total_money', 'pay_time')->toArray();
-        foreach ($pay_moneys as $k => $v) {
-            if ($k != '') {
-                $base['total_pay_money'] += $v;
-            }
-        }
-        $base['success_y'] = array_sum($orders_count->pluck('is_success')->toArray());
-        $base['success_n'] = $orders_count->count() - $base['success_y'];
-        $base['count'] = $orders_count->count();
-
-        foreach ($orders as $key => $value) {
-            $pros = json_decode($value->products);
-            foreach ($pros as $k => $val) {
-                $orders[$key]['pro_text'] .= '['.$val->product->name.'×'.$val->total_num.']';
-            }
-        }
-        return view('admin.order', compact('orders', 'mall_id', 'base', 'base', 'state'));
-    }
-
     //切换某商超是否开始接单
     public function trigger(Request $request, $id)
     {
@@ -252,5 +179,51 @@ class AdminController extends Controller
         } else {
             return back()->with('success', '改变接单状态失败！！！！');
         }
+    }
+
+    //对商超的数据报表
+    public function total_order(Request $request, $mall_id)
+    {
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        if (strtotime($end_date) - strtotime($start_date) < 0) {
+            return back()->with('success', '结束日期不能小于开始日期，请重新查询！');
+        }
+
+        if (is_null($start_date) || is_null($end_date)) {
+            $today = date_format(now(), 'Y-m-d');
+            $start_date=$today;
+            $end_date=$today;
+        }
+
+        $orders = Order::where('mall_id', $mall_id)->whereNotNull('pay_time')->whereDate('pay_time','>=',$start_date)->whereDate('pay_time','<=',$end_date)->get();
+        $product_ids = array();
+        foreach ($orders as $key => $value) {
+            $products_arr = json_decode($value->products, true);
+            foreach ($products_arr as $k => $v) {
+                $product_ids[] = $v['product']['id'];
+            }
+        }
+        unset($key, $value, $k, $v);
+
+        $final_products = Product::find($product_ids)->toArray();
+        $product_ids = array_count_values($product_ids);
+        foreach ($final_products as $key => $value) {
+            foreach ($product_ids as $k => $v) {
+                if ($value['id'] == $k) {
+                    $final_products[$key]['buy_num'] = $v;
+                }
+            }
+        }
+        unset($key, $value, $k, $v);
+
+        $products_total_num = array_sum(array_column($final_products, 'buy_num'));
+        $products_total_money = null;
+        foreach ($final_products as $key => $value) {
+            $products_total_money += $value['buy_num'] * $value['money'];
+        }
+
+        return view('admin.total_order',
+            compact('mall_id', 'final_products', 'products_total_money', 'products_total_num'));
     }
 }
