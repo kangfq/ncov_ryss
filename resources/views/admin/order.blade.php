@@ -82,9 +82,9 @@
                                 </a>
                             @endif
                             <div style="float: right;">
-{{--                                <a href="{{ route('order.export_order') }}">--}}
-{{--                                    <button type="button" class="btn btn-danger btn-sm">导出到Excel</button>--}}
-{{--                                </a>--}}
+                                <a href="{{ route('order.export_order',['id'=>$mall_id,'created_at'=>Request::input('created_at'),'pay_date'=>Request::input('pay_date'),'pay_state'=>Request::input('pay_state'),'is_success'=>Request::input('is_success')]) }}">
+                                    <button type="button" class="btn btn-danger btn-sm">导出到Excel</button>
+                                </a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="window.print();">打印本页
                                 </button>
                             </div>

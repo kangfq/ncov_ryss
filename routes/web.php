@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
         Route::get('show/{id}', 'OrderController@show')->name('show');
         Route::post('success/{id}', 'OrderController@success')->name('success');
         Route::delete('destroy/{id}', 'OrderController@destroy')->name('destroy');
-        Route::get('export_order', 'OrderController@export_order')->middleware('admin')->name('export_order');
+        Route::get('export_order/{id}', 'OrderController@export_order')->middleware('admin')->name('export_order');
     });
 //商品管理
     Route::prefix('product')->name('product.')->group(function () {

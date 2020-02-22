@@ -175,9 +175,59 @@ class OrderController extends Controller
     }
 
     //导出订单
-    public function export_order(Request $request)
+    public function export_order(Request $request,$id)
     {
-        return Excel::download(new OrderExport, 'order_'.time().'.xlsx');
-    }
+        $mall_id = $id;
 
+        $c_time = array();
+        if ($request->input('created_at') != '') {
+            $c_time = function ($query) use ($request) {
+                $query->whereDate('created_at', '=', $request->input('created_at'));
+            };
+        }
+        $p_time = array();
+        if ($request->input('pay_date') != '') {
+            $p_time = function ($query) use ($request) {
+                $query->whereDate('pay_time', '=', $request->input('pay_date'));
+            };
+        }
+        $p_state = array();
+        if ($request->input('pay_state') == 'y') {
+            $p_state = function ($query) use ($request) {
+                $query->whereNotNull('pay_time');
+            };
+        }
+        if ($request->input('pay_state') == 'n') {
+            $p_state = function ($query) use ($request) {
+                $query->whereNull('pay_time');
+            };
+        }
+        $success = array();
+        if ($request->input('is_success') == 'y') {
+            $success = function ($query) use ($request) {
+                $query->where('is_success', '=', 1);
+            };
+        }
+        if ($request->input('is_success') == 'n') {
+            $success = function ($query) use ($request) {
+                $query->where('is_success', '=', 0);
+            };
+        }
+        $orders = Order::with('mall')->where('mall_id', $mall_id)
+            ->where($c_time)
+            ->where($p_time)
+            ->where($p_state)
+            ->where($success)
+            ->get();
+
+        foreach ($orders as $key => $value) {
+            $pros = json_decode($value->products);
+            foreach ($pros as $k => $val) {
+                $orders[$key]['pro_text'] .= '['.$val->product->name.'×'.$val->total_num.']';
+                $orders[$key]['mall_name'] = $value->mall->name;
+            }
+            unset ($value['mall'], $value['products'], $value['id'],$value['user_id'],$value['deleted_at'],$value['updated_at'],$value['mall_id']);
+        }
+        return Excel::download(new OrderExport($orders->toArray()), 'order_'.time().'.xlsx');
+    }
 }
