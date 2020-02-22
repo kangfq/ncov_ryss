@@ -81,8 +81,7 @@
                                 </a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="window.print();">打印本页
                                 </button>
-                                <a href="{{ route('admin.total_order',$mall_id) }}"><button type="button" class="btn btn-danger btn-sm">商超报表
-                                </button></a>
+{{--                                <a href="{{ route('admin.total_order',$mall_id) }}"><button type="button" class="btn btn-danger btn-sm">商超报表</button></a>--}}
                             </div>
                         </form>
                     </div>
