@@ -10,7 +10,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header"><a href="{{ route('admin.index') }}">管理中心</a> / @if($mall_id==1)<a href="{{route('admin.order',$mall_id)}}">订单管理</a>@endif @if($mall_id==2)<a href="{{route('admin.zborder')}}">订单管理</a>@endif / {{ $mall_name }}订单回收站</div>
+                    <div class="card-header"><a href="{{ route('admin.index') }}">管理中心</a> / <a href="{{route('admin.order',$mall_id)}}">订单管理</a> / {{ $mall_name }}订单回收站</div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
