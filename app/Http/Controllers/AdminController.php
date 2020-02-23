@@ -184,6 +184,7 @@ class AdminController extends Controller
     //对商超的数据报表
     public function total_order(Request $request, $mall_id)
     {
+        $mall_name=Mall::find($mall_id)->name;
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
         if (strtotime($end_date) - strtotime($start_date) < 0) {
@@ -200,6 +201,7 @@ class AdminController extends Controller
             $start_date)->whereDate('pay_time', '<=', $end_date)->get();
 
         //将序列化的商品取出来
+        $products_arr=array();
         foreach ($orders as $key => $value) {
             $products_arr[] = json_decode($value->products, true);
         }
@@ -253,6 +255,6 @@ class AdminController extends Controller
         }
 
         return view('admin.total_order',
-            compact('mall_id', 'final_products', 'products_total_money', 'products_total_num'));
+            compact('mall_id','mall_name', 'final_products', 'products_total_money', 'products_total_num'));
     }
 }
