@@ -51,11 +51,11 @@
                             <tbody>
                             @foreach($final_products as $final_product)
                                 <tr>
-                                    <td>{{$final_product['id']}}</td>
-                                    <td>{{$final_product['name']}}</td>
-                                    <td>￥{{$final_product['money']}}</td>
-                                    <td>{{$final_product['buy_num']}}</td>
-                                    <td>￥{{sprintf("%.2f",$final_product['buy_num'] * $final_product['money'])}}</td>
+                                    <td>{{$final_product['product_id']}}</td>
+                                    <td>{{$final_product['product_name']}}</td>
+                                    <td>￥{{$final_product['product_price']}}</td>
+                                    <td>{{$final_product['product_num']}}</td>
+                                    <td>￥{{sprintf("%.2f",$final_product['product_num'] * $final_product['product_price'])}}</td>
                                 </tr>
                             @endforeach
                             <tr>

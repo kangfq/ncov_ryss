@@ -71,17 +71,21 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm">筛选</button>
-                                <a href="{{ route('admin.order',$mall_id) }}">
-                                    <button type="button" class="btn btn-primary btn-sm">重置</button>
-                                </a>
+                            <a href="{{ route('admin.order',$mall_id) }}">
+                                <button type="button" class="btn btn-primary btn-sm">重置</button>
+                            </a>
                             <div style="float: right;">
-                                <a href="{{ route('admin.recycle.index',$mall_id) }}"><button type="button" class="btn btn-sm btn-danger">订单回收站</button></a>
+                                <a href="{{ route('admin.recycle.index',$mall_id) }}">
+                                    <button type="button" class="btn btn-sm btn-danger">订单回收站</button>
+                                </a>
                                 <a href="{{ route('order.export_order',['id'=>$mall_id,'created_at'=>Request::input('created_at'),'pay_date'=>Request::input('pay_date'),'pay_state'=>Request::input('pay_state'),'is_success'=>Request::input('is_success')]) }}">
                                     <button type="button" class="btn btn-danger btn-sm">导出到Excel</button>
                                 </a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="window.print();">打印本页
                                 </button>
-{{--                                <a href="{{ route('admin.total_order',$mall_id) }}"><button type="button" class="btn btn-danger btn-sm">商超报表</button></a>--}}
+                                <a href="{{ route('admin.total_order',$mall_id) }}">
+                                    <button type="button" class="btn btn-danger btn-sm">商超报表</button>
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -153,6 +157,10 @@
         $(function () {
             //确认收款
             $(document).on("click", ".pay", function () {
+                let o = confirm('是否确认收款?');
+                if (o === false) {
+                    return false;
+                }
                 let id = $(this).parents("tr").data("id");
                 let _this = $(this);
                 $.ajax({
@@ -173,6 +181,10 @@
             });
             // 取消收款
             $(document).on("click", ".pay_back", function () {
+                let o = confirm('是否确认取消收款?');
+                if (o === false) {
+                    return false;
+                }
                 let id = $(this).parents("tr").data("id");
                 let _this = $(this);
                 $.ajax({

@@ -68,7 +68,7 @@ class AdminController extends Controller
         $id = $request->input('id');
         $pay = Order::find($id)->update(['pay_time' => now()->toDateTimeString()]);
         if ($pay) {
-            return $info = ['state' => 1, 'msg' => '收款成功'];
+            return $info = ['state' => 1, 'msg' => '收款成功,表格下方的汇总信息需要刷新页面才会变更,请注意!'];
         } else {
             return $info = ['state' => 0, 'msg' => '收款失败'];
         }
@@ -80,7 +80,7 @@ class AdminController extends Controller
         $id = $request->input('id');
         $pay = Order::find($id)->update(['pay_time' => null]);
         if ($pay) {
-            return $info = ['state' => 1, 'msg' => '取消成功'];
+            return $info = ['state' => 1, 'msg' => '取消成功,表格下方的汇总信息需要刷新页面才会变更,请注意!'];
         } else {
             return $info = ['state' => 0, 'msg' => '取消失败'];
         }
@@ -95,7 +95,7 @@ class AdminController extends Controller
 
 
     //订单管理
-    public function order(Request $request,$mall_id)
+    public function order(Request $request, $mall_id)
     {
         $state = Mall::find($mall_id)->is_show;
         $c_time = array();
@@ -192,35 +192,64 @@ class AdminController extends Controller
 
         if (is_null($start_date) || is_null($end_date)) {
             $today = date_format(now(), 'Y-m-d');
-            $start_date=$today;
-            $end_date=$today;
+            $start_date = $today;
+            $end_date = $today;
         }
 
-        $orders = Order::where('mall_id', $mall_id)->whereNotNull('pay_time')->whereDate('pay_time','>=',$start_date)->whereDate('pay_time','<=',$end_date)->get();
-        $product_ids = array();
+        $orders = Order::where('mall_id', $mall_id)->whereNotNull('pay_time')->whereDate('pay_time', '>=',
+            $start_date)->whereDate('pay_time', '<=', $end_date)->get();
+
+        //将序列化的商品取出来
         foreach ($orders as $key => $value) {
-            $products_arr = json_decode($value->products, true);
-            foreach ($products_arr as $k => $v) {
-                $product_ids[] = $v['product']['id'];
+            $products_arr[] = json_decode($value->products, true);
+        }
+        unset($key, $value);
+
+        //将所有商品信息重装数组
+        $new_products_arr = array();
+        foreach ($products_arr as $key => $value) {
+            foreach ($value as $k => $v) {
+                $new_products_arr[] = $v;
             }
         }
         unset($key, $value, $k, $v);
 
-        $final_products = Product::find($product_ids)->toArray();
-        $product_ids = array_count_values($product_ids);
-        foreach ($final_products as $key => $value) {
-            foreach ($product_ids as $k => $v) {
-                if ($value['id'] == $k) {
-                    $final_products[$key]['buy_num'] = $v;
+        //组装商品id和数量的数组
+        $products = array();
+        foreach ($new_products_arr as $key => $value) {
+            $products[$key]['product_id'] = $value['product']['id'];
+            $products[$key]['product_name'] = $value['product']['name'];
+            $products[$key]['product_price'] = $value['product']['money'];
+            $products[$key]['product_num'] = $value['total_num'];
+        }
+        unset($key, $value);
+
+        //相同的ID合并 汇总数量
+        $final_products = array();
+        //商品id 去重复
+        $product_ids = array_unique(array_column($products, 'product_id'));
+        foreach ($product_ids as $key => $value) {
+            $num = 0;
+            $name = '';
+            $price = '';
+            foreach ($products as $k => $v) {
+                if ($value == $v['product_id']) {
+                    $num += $v['product_num'];
+                    $name = $v['product_name'];
+                    $price = $v['product_price'];
                 }
             }
+            $final_products[$key]['product_id'] = $value;
+            $final_products[$key]['product_name'] = $name;
+            $final_products[$key]['product_price'] = $price;
+            $final_products[$key]['product_num'] = $num;
         }
         unset($key, $value, $k, $v);
 
-        $products_total_num = array_sum(array_column($final_products, 'buy_num'));
-        $products_total_money = null;
+        $products_total_money = 0;
+        $products_total_num = array_sum(array_column($final_products, 'product_num'));
         foreach ($final_products as $key => $value) {
-            $products_total_money += $value['buy_num'] * $value['money'];
+            $products_total_money += $value['product_num'] * $value['product_price'];
         }
 
         return view('admin.total_order',
