@@ -39,8 +39,7 @@ Route::middleware('auth')->group(function () {
 //订单管理
     Route::prefix('order')->name('order.')->group(function () {
         Route::get('/', 'OrderController@index')->name('index');
-        Route::get('create', 'OrderController@create')->name('create');
-        Route::get('zbcreate', 'OrderController@zbcreate')->name('zbcreate');
+        Route::get('create/{mall_id}', 'OrderController@create')->name('create');
         Route::post('store', 'OrderController@store')->name('store');
         Route::get('show/{id}', 'OrderController@show')->name('show');
         Route::post('success/{id}', 'OrderController@success')->name('success');
@@ -63,16 +62,15 @@ Route::middleware('auth')->group(function () {
 //后台管理
 Route::prefix('admin')->middleware('auth', 'admin')->name('admin.')->group(function () {
     Route::get('/', 'AdminController@index')->name('index');
-    Route::get('create', 'AdminController@create')->name('create');
+    Route::get('create/{mall_id}', 'AdminController@create')->name('create');
     Route::post('store', 'AdminController@store')->name('store');
-    Route::get('edit/{id}', 'AdminController@edit')->name('edit');
+    Route::get('edit/{mall_id}/{id}', 'AdminController@edit')->name('edit');
     Route::put('update/{id}', 'AdminController@update')->name('update');
     Route::delete('destroy/{id}', 'AdminController@destroy')->name('destroy');
     Route::post('pay', 'AdminController@pay')->name('pay');
     Route::post('pay_back', 'AdminController@pay_back')->name('pay_back');
-    Route::get('product', 'AdminController@product')->name('product');
+    Route::get('product/{mall_id}', 'AdminController@product')->name('product');
     Route::get('order/{mall_id}', 'AdminController@order')->name('order');
-//    Route::get('zborder', 'AdminController@zborder')->name('zborder');
     Route::post('trigger/{id}', 'AdminController@trigger')->name('trigger');
     Route::get('total_order/{mall_id}', 'AdminController@total_order')->name('total_order');
 

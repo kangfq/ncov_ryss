@@ -28,31 +28,9 @@ class OrderController extends Controller
     }
 
     //麦德龙
-    public function create()
+    public function create($mall_id)
     {
-        $state = Mall::find(1)->is_show;
-        $mall_id = 1;
-        $address = Address::where('user_id', Auth::id())->first();
-        if (is_null($address)) {
-            return redirect(route('address.index'))->with('success', '请先添加姓名和电话再订菜');
-        }
-        //购物车数量
-        $carts = Cart::where('user_id', Auth::id())->where('mall_id', 1)->get();
-        //购物车总金额
-        $total_price = 0;
-        foreach ($carts as $key => $value) {
-            $total_price += $value->product->money * $value->total_num;
-        }
-        //添加商品
-        $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
-        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id', 'state'));
-    }
-
-    //中百
-    public function zbcreate()
-    {
-        $state = Mall::find(2)->is_show;
-        $mall_id = 2;
+        $mall = Mall::find($mall_id);
         $address = Address::where('user_id', Auth::id())->first();
         if (is_null($address)) {
             return redirect(route('address.index'))->with('success', '请先添加姓名和电话再订菜');
@@ -66,7 +44,7 @@ class OrderController extends Controller
         }
         //添加商品
         $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
-        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id', 'state'));
+        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id', 'mall'));
     }
 
     //提交订单
@@ -175,7 +153,7 @@ class OrderController extends Controller
     }
 
     //导出订单
-    public function export_order(Request $request,$id)
+    public function export_order(Request $request, $id)
     {
         $mall_id = $id;
 
@@ -226,7 +204,7 @@ class OrderController extends Controller
                 $orders[$key]['pro_text'] .= '['.$val->product->name.'×'.$val->total_num.']';
                 $orders[$key]['mall_name'] = $value->mall->name;
             }
-            unset ($value['mall'], $value['products'],$value['user_id'],$value['deleted_at'],$value['updated_at'],$value['mall_id']);
+            unset ($value['mall'], $value['products'], $value['user_id'], $value['deleted_at'], $value['updated_at'], $value['mall_id']);
         }
         return Excel::download(new OrderExport($orders->toArray()), 'order_'.time().'.xlsx');
     }

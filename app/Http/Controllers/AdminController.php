@@ -11,53 +11,58 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
+        $malls=Mall::all();
+        return view('admin.index',compact('malls'));
     }
 
-    public function create()
+    //添加商品
+    public function create($mall_id)
     {
-        $malls = Mall::all();
-        return view('admin.create', compact('malls'));
+        $mall=Mall::find($mall_id);
+        return view('admin.create', compact('mall'));
     }
 
     public function store(Request $request)
     {
+        $mall_id=$request->input('mall_id');
+
         $data = $request->all();
-        $data['description'] = '暂时没有描述';
         $create = Product::create($data);
         if ($create) {
-            return redirect(route('admin.product'))->with('success', '添加成功');
+            return redirect(route('admin.product',$mall_id))->with('success', '添加成功');
         } else {
             return back()->with('success', '添加失败!!');
         }
 
     }
 
-    public function edit($id)
+    public function edit($mall_id,$id)
     {
-        $malls = Mall::all();
+        $mall = Mall::find($mall_id);
         $product = Product::find($id);
-        return view('admin.edit', compact('product', 'malls'));
+        return view('admin.edit', compact('product', 'mall'));
     }
 
     public function update(Request $request, $id)
     {
+        $mall_id=$request->input('mall_id');
         $product = Product::whereId($id)->update($request->except('_token', '_method'));
         if ($product) {
-            return redirect(route('admin.product'))->with('success', '更新成功');
+            return redirect(route('admin.product',$mall_id))->with('success', '更新成功');
         } else {
             return back()->with('success', '更新失败!！！!');
         }
     }
 
     //删除商品
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $mall_id=$request->input('mall_id');
         $product = Product::destroy($id);
         if ($product) {
-            return redirect(route('admin.product'))->with('success', '删除成功');
+            return redirect(route('admin.product',$mall_id))->with('success', '删除成功');
         } else {
-            return redirect(route('admin.product'))->with('success', '删除失败！！！！');
+            return back()->with('success', '删除失败！！！！');
         }
 
     }
@@ -87,10 +92,11 @@ class AdminController extends Controller
     }
 
     //商品管理
-    public function product()
+    public function product($mall_id)
     {
-        $products = Product::where('is_show', 1)->get();
-        return view('admin.product', compact('products'));
+        $mall=Mall::find($mall_id);
+        $products = Product::where('is_show', 1)->where('mall_id',$mall_id)->get();
+        return view('admin.product', compact('products','mall_id','mall'));
     }
 
 

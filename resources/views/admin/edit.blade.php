@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">编辑商品</div>
+                    <div class="card-header"><a href="{{ route('admin.product',$mall->id) }}">商品管理</a> / 编辑{{ $mall->name }}商品</div>
                     @if (session('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
@@ -15,14 +15,7 @@
                         <form action="{{route('admin.update',$product->id)}}" method="post">
                             @csrf
                             @method('put')
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">所属商家</label>
-                                <select class="form-control" id="exampleFormControlSelect1" name="mall_id">
-                                    @foreach($malls as $mall)
-                                        <option value="{{ $mall->id }}" @if($product->mall_id ==$mall->id) selected @endif>{{ $mall->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <input type="hidden" name="mall_id" value="{{ $mall->id }}">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">商品名称</label>
                                 <input type="text" class="form-control" name="name" id="exampleInputPassword1" value="{{ $product->name }}"  required>
@@ -34,6 +27,10 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword2">库存数量</label>
                                 <input type="text" class="form-control" id="exampleInputPassword2" name="stock" value="{{ $product->stock }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">商品描述</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="description"> {{$product->description}}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">提交</button>
                         </form>

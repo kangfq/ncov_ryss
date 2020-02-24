@@ -7,21 +7,18 @@
                 {{ session('success') }}
             </div>
         @endif
-        @if($state==0)
+        @if($mall->is_show==0)
             <div class="alert alert-danger" role="alert">
-                @if($mall_id ==1) 麦德龙 @else 中百@endif暂时未开放订菜，请留意群内通知！
+                {{ $mall->name }}暂时未开放订菜，请留意群内通知！
             </div>
         @endif
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">[@if($mall_id ==1) 麦德龙订菜 @else 中百订菜@endif] / <a
+                    <div class="card-header">[{{$mall->name}}订菜] / <a
                                 href="{{ route('home') }}">个人中心</a> / <a
-                                href="{{ route('order.create') }}">麦德龙订菜</a> /
-                        <a href="{{ route('info.mdl') }}"
-                           target="_blank">麦德龙菜单</a> / <a
-                                href="{{ route('order.zbcreate') }}">中百订菜</a> / <a href="{{ route('info.zb') }}"
-                                                                                   target="_blank">中百菜单</a></div>
+                                href="{{ route('order.create',1) }}">麦德龙订菜</a> / <a
+                                href="{{ route('order.create',2) }}">中百订菜</a></div>
                     <div class="card-body">
                         <form action="{{route('cart.store')}}" method="post">
                             @csrf
@@ -49,12 +46,12 @@
                             <div class="form-text text-muted" style="color: red!important;">
                                 可以通过多次提交把商品加入购物车,加入完毕后请提交订单。
                             </div>
-                            @if($state==0)
+                            @if($mall->is_show==0)
                                 <div class="alert alert-danger" role="alert">
-                                    @if($mall_id ==1) 麦德龙 @else 中百@endif暂时未开放订菜，请留意群内通知！
+                                    {{$mall->name}}暂时未开放订菜，请留意群内通知！
                                 </div>
                             @endif
-                            @if($state==1)
+                            @if($mall->is_show==1)
                                 <button type="submit" class="btn btn-primary">加入购物车</button>
                             @endif
                         </form>
@@ -63,7 +60,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">@if($mall_id ==1) 麦德龙@else 中百@endif购物车</div>
+                    <div class="card-header">{{ $mall->name }}购物车</div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
@@ -103,12 +100,12 @@
                             <form action="{{ route('order.store') }}" method="post">
                                 @csrf
                                 <input type="hidden" value="{{ $mall_id }}" name="mall_id">
-                                @if($state==0)
+                                @if($mall->is_show==0)
                                     <div class="alert alert-danger" role="alert">
-                                        @if($mall_id ==1) 麦德龙 @else 中百@endif暂时未开放订菜，请留意群内通知！
+                                        {{ $mall->name }}暂时未开放订菜，请留意群内通知！
                                     </div>
                                 @endif
-                                @if($state==1)
+                                @if($mall->is_show==1)
                                     <button type="submit" class="btn btn-danger" id="submit">提交订单</button>
                                 @endif
                             </form>

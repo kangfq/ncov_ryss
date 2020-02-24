@@ -16,6 +16,7 @@ class AddressController extends Controller
 
     public function store(Request $request)
     {
+        return 1;
         $data = $request->all();
         $data['user_id'] = Auth::id();
         $address = Address::create($data);

@@ -12,6 +12,9 @@
                         </div>
                     @endif
                     <div class="card-body">
+                        <div class="alert alert-danger" role="alert">
+                            准确的收货信息十分重要，请务必填写自己的真实姓名和电话，方便志愿者的工作。
+                        </div>
                         @if(!is_null($address))
                             <div>
                                 <p>您的收货信息已经提交,不需要重复提交!</p>
@@ -23,12 +26,14 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">姓名</label>
-                                    <input type="text" class="form-control" name="name" id="exampleInputPassword1" required>
+                                    <input type="text" class="form-control" name="name" id="exampleInputPassword1"
+                                           required>
                                     <small id="emailHelp" class="form-text text-muted">请输入自己的真实姓名</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">手机号码</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" name="tel" required>
+                                    <label for="tle">手机号码</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" name="tel"
+                                           required maxlength="11" minlength="11">
                                     <small id="emailHelp" class="form-text text-muted">请输入自己的手机号码</small>
                                 </div>
                                 <div class="form-text text-muted" style="color: red!important;">请注意此信息只能输入一次,请务必准确</div>

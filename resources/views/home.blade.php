@@ -3,26 +3,34 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 @if (session('success'))
                     <div class="alert alert-success" role="alert">
                         {{ session('success') }}
                     </div>
                 @endif
-                <div class="gere">
-                    <div class="card-header">
-                        个人中心
-                    </div>
-                    <div class="card-body" style="color: red;">
-                       本系统只可以订盘龙城麦德龙和天纵城中百的菜,请大家注意!
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="{{ route('address.index') }}">收货信息管理</a></li>
-                        <li class="list-group-item"><a href="{{ route('order.create') }}">开始订菜[麦德龙]</a></li>
-                        <li class="list-group-item"><a href="{{ route('order.zbcreate') }}">开始订菜[中百]</a></li>
-                        <li class="list-group-item"><a href="{{ route('order.index') }}">订单查看</a></li>
-                    </ul>
-                </div>
+                <ul class="list-group">
+                    <li class="list-group-item active">个人中心</li>
+                    <a href="{{ route('address.index') }}">
+                        <li class="list-group-item">收货信息管理</li>
+                    </a>
+                    @foreach($malls as $mall)
+                    <a href="{{ route('order.create',$mall->id) }}">
+                        <li class="list-group-item">开始购物[{{ $mall->name }}]</li>
+                    </a>
+                    @endforeach
+                    <a href="{{ route('order.index') }}">
+                        <li class="list-group-item">我的订单</li>
+                    </a>
+                    @if(Auth()->check())
+                        @if(Auth()->user()->is_admin==1)
+                            <a href="{{ route('admin.index') }}">
+                                <li class="list-group-item">管理入口</li>
+                            </a>
+                        @endif
+                    @endif
+                </ul>
+
             </div>
         </div>
     </div>

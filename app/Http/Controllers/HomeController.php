@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mall;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +26,8 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return view('home');
+            $malls=Mall::all();
+            return view('home',compact('malls'));
         } else {
             return view('home.index');
         }

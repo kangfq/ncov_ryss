@@ -1,99 +1,42 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
+@section('content')
 
-    <title>日月山水 加油！</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-    <!-- Styles -->
-    <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-    </style>
-</head>
-<body>
-<div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-                <a href="{{ url('/home') }}">进入系统</a>
-            @else
-                <a href="{{ route('login') }}">登录</a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}">注册</a>
-                @endif
-            @endauth
+    <div class="container">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">公告！</h4>
+            <p>本网站由小区志愿者创建，作为疫情期间帮助业主了解信息和购物的平台之一，无任何盈利目的。</p>
+            <p>小区所有志愿者对接商超购物没有一分钱收入和其他利益，请大家多支持和理解，购物过程中主动配合相关工作。</p>
+            <hr>
+            <p class="mb-0">新冠病毒不容小视，请各位邻居千万重视，保护好自己和家人。</p>
         </div>
-    @endif
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <b>信息公开</b>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">最新信息</h5>
+                        <p class="card-text">小区疫情信息和业主们可能需要的信息汇总。</p>
+                        <a href="{{ route('info.index') }}" class="btn btn-primary">查看信息</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <b>在线购物</b>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">对接盘龙城麦德龙 / 天纵城中百</h5>
+                        <p class="card-text">在系统下单后将由小区志愿者为您服务，感谢他们的付出！</p>
+                        <a href="{{ route('home') }}" class="btn btn-primary">进入系统</a>
+                    </div>
+                </div>
+            </div>
 
-    <div class="content">
-        <div class="title m-b-md" style="font-size: 40px;!important;">
-            日月山水加油!
         </div>
-        {{--        <div>说明:感谢.....</div>--}}
-        <div class="links">
-            <a href="{{ route('info.index') }}">信息公开</a>
-            <a href="{{ route('home') }}">我要买菜</a>
-            @if(Auth()->check())
-                @if(Auth()->user()->is_admin==1)
-                    <a href="{{ route('admin.index') }}">管理入口</a>
-                @endif
-            @endif
-        </div>
+        <hr>
+        *联系站长 QQ群：86019555（日月山水业主群）
     </div>
-</div>
-</body>
-</html>
+@endsection

@@ -10,13 +10,12 @@
         @endif
         <div class="row justify-content-center">
             <div class="col-md-12">
+                @include('info._menu')
                 <div class="card">
-                    <div class="card-header"><a href="/">首页</a> / <a href="{{route('info.index')}}">信息公开</a> / 购物信息
                     </div>
                     <div class="card-body">
-                        <div class="card-title">
+                        <div class="alert alert-success">
                             尊敬的各位邻居，目前除了在本站网上订购商超的商品外，以下商户也为小区提供服务，请自由选择。
-                            <hr>
                         </div>
                         <div class="mall">
                             <div>
