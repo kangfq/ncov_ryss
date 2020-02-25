@@ -38,7 +38,7 @@ class OrderController extends Controller
 
         //商品
         $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
-        return view('home.order.create', compact('products','mall'));
+        return view('home.order.create', compact('products', 'mall'));
     }
 
     //提交订单
@@ -55,10 +55,15 @@ class OrderController extends Controller
         }
 
         //购物车总金额
-        $total_price = 0;
-        foreach ($carts as $key => $value) {
-            $total_price += $value->product->money * $value->total_num;
+        try {
+            $total_price = 0;
+            foreach ($carts as $key => $value) {
+                $total_price += $value->product->money * $value->total_num;
+            }
+        } catch (\Exception $exception) {
+            return back()->with('success', '您的购物车中有失效的商品,请删除后重新提交订单!!!');
         }
+
 
         $address = Address::where('user_id', Auth::id())->first();
         $data['user_id'] = Auth::id();
@@ -153,20 +158,20 @@ class OrderController extends Controller
 
         $c_time = array();
         if ($request->input('created_at') != '') {
-            $c_date=str_replace(' ','',$request->input('created_at'));
-            $start_c_date= explode('~',$c_date)[0];
-            $end_c_date= explode('~',$c_date)[1];
-            $c_time = function ($query) use ($start_c_date,$end_c_date) {
-                $query->whereDate('created_at', '>=', $start_c_date)->whereDate('created_at','<=',$end_c_date);
+            $c_date = str_replace(' ', '', $request->input('created_at'));
+            $start_c_date = explode('~', $c_date)[0];
+            $end_c_date = explode('~', $c_date)[1];
+            $c_time = function ($query) use ($start_c_date, $end_c_date) {
+                $query->whereDate('created_at', '>=', $start_c_date)->whereDate('created_at', '<=', $end_c_date);
             };
         }
         $p_time = array();
         if ($request->input('pay_date') != '') {
-            $p_date=str_replace(' ','',$request->input('pay_date'));
-            $start_p_date= explode('~',$p_date)[0];
-            $end_p_date= explode('~',$p_date)[1];
-            $p_time = function ($query) use ($start_p_date,$end_p_date) {
-                $query->whereDate('pay_time', '>=', $start_p_date)->whereDate('pay_time','<=',$end_p_date);
+            $p_date = str_replace(' ', '', $request->input('pay_date'));
+            $start_p_date = explode('~', $p_date)[0];
+            $end_p_date = explode('~', $p_date)[1];
+            $p_time = function ($query) use ($start_p_date, $end_p_date) {
+                $query->whereDate('pay_time', '>=', $start_p_date)->whereDate('pay_time', '<=', $end_p_date);
             };
         }
         $p_state = array();
