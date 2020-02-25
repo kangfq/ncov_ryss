@@ -40,6 +40,9 @@
 
         </div>
         <hr>
-        *联系站长 QQ群：86019555（日月山水业主群）
+        <div class="alert alert-info">
+            <p class="mb-0">本项目开源在码云：<a href="https://gitee.com/kangfq/ncov_ryss" target="_blank">https://gitee.com/kangfq/ncov_ryss</a> 如果其他社区有需要使用此程序（非盈利性质），我可以免费提供技术支持。</p>
+        </div>
+        <p>*联系站长 QQ群：86019555（日月山水业主群）</p>
     </div>
 @endsection
