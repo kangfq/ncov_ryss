@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     });
 //购物车
     Route::prefix('cart')->name('cart.')->group(function () {
+        Route::get('/{mall_id}', 'CartController@index')->name('index');
         Route::post('store', 'CartController@store')->name('store');
         Route::delete('destroy/{id}', 'CartController@destroy')->name('destroy');
     });

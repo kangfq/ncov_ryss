@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a8b90923-2075-4c0d-a82d-cc6926cae33e" name="Default Changelist" comment="" />
+    <list default="true" id="a8b90923-2075-4c0d-a82d-cc6926cae33e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home/order/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/order/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,18 +133,18 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/home/cart" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\laragon\www\ryss\resources\views\home\cart" />
       <recent name="E:\laragon\www\ryss\resources\views\admin" />
       <recent name="E:\laragon\www\ryss\public\vendor" />
       <recent name="E:\laragon\www\ryss\resources\views\admin\recycle" />
       <recent name="E:\laragon\www\ryss\public\vendor\menu" />
-      <recent name="E:\laragon\www\ryss\resources\views\info" />
     </key>
   </component>
   <component name="RunManager">
@@ -166,7 +172,7 @@
       <workItem from="1582422800741" duration="13025000" />
       <workItem from="1582444645001" duration="1614000" />
       <workItem from="1582512907426" duration="12205000" />
-      <workItem from="1582595443910" duration="4456000" />
+      <workItem from="1582595443910" duration="5981000" />
     </task>
     <servers />
   </component>
@@ -174,13 +180,17 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="755" y="311" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1582600912838">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="755" y="311" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1582600912838" />
     <state x="693" y="273" width="662" height="566" key="find.popup" timestamp="1582595747110">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="693" y="273" width="662" height="566" key="find.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1582595747110" />
-    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1582535046045">
+    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1582600843831">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1582535046045" />
+    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1582600843831" />
   </component>
 </project>

@@ -35,16 +35,10 @@ class OrderController extends Controller
         if (is_null($address)) {
             return redirect(route('address.index'))->with('success', '请先添加姓名和电话再订菜');
         }
-        //购物车数量
-        $carts = Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->get();
-        //购物车总金额
-        $total_price = 0;
-        foreach ($carts as $key => $value) {
-            $total_price += $value->product->money * $value->total_num;
-        }
-        //添加商品
+
+        //商品
         $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
-        return view('home.order.create', compact('products', 'carts', 'total_price', 'mall_id', 'mall'));
+        return view('home.order.create', compact('products','mall'));
     }
 
     //提交订单

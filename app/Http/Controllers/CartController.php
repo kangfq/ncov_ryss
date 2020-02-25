@@ -3,11 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Mall;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+
+    public function index($mall_id)
+    {
+        $mall = Mall::find($mall_id);
+        //购物车数量
+        $carts = Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->get();
+        //购物车总金额
+        $total_price = 0;
+        foreach ($carts as $key => $value) {
+            $total_price += $value->product->money * $value->total_num;
+        }
+
+        return view('home.cart.index',compact('mall','carts','total_price'));
+    }
+
     public function store(Request $request)
     {
         $data['product_id'] = $request->input('product_id');
@@ -23,7 +39,7 @@ class CartController extends Controller
             $update = Cart::where('user_id', Auth::id())->where('product_id',
                 $data['product_id'])->update(['total_num' => $num]);
             if ($update) {
-                return back()->with('success', '加入购物车成功！');
+                return redirect(route('cart.index', $data['mall_id']))->with('success', '加入购物车成功！');
             } else {
                 return back()->with('success', '加入购物车失败！！！！');
             }
@@ -31,14 +47,11 @@ class CartController extends Controller
             //直接创建新的数据
             $create = Cart::create($data);
             if ($create) {
-                return back()->with('success', '加入购物车成功！');
+                return redirect(route('cart.index', $data['mall_id']))->with('success', '加入购物车成功！');
             } else {
                 return back()->with('success', '加入购物车失败！！！！');
             }
-
         }
-
-
     }
 
     public function destroy($id)
