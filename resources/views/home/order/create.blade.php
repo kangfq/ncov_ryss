@@ -24,7 +24,8 @@
                 <div class="card">
                     <div class="card-header">{{ $mall->name }}购物车</div>
                     <div class="card-body">
-                        <table class="table">
+                        <div class="table-responsive">
+                        <table class="table text-nowrap">
                             <thead>
                             <tr>
                                 <th scope="col">序号</th>
@@ -57,6 +58,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        </div>
                         <div class="card-header">合计金额：￥{{ $total_price }}</div>
                         <div class="card-header">
                             <form action="{{ route('order.store') }}" method="post">
