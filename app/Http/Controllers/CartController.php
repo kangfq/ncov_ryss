@@ -14,14 +14,18 @@ class CartController extends Controller
     {
         $mall = Mall::find($mall_id);
         //购物车数量
-        $carts = Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->get();
+        $carts = Cart::with('product')->where('user_id', Auth::id())->where('mall_id', $mall_id)->get();
         //购物车总金额
         $total_price = 0;
         foreach ($carts as $key => $value) {
-            $total_price += $value->product->money * $value->total_num;
+            if (is_null($value->product)) {
+                $total_price += 0;
+            } else {
+                $total_price += $value->product->money * $value->total_num;
+            }
         }
 
-        return view('home.cart.index',compact('mall','carts','total_price'));
+        return view('home.cart.index', compact('mall', 'carts', 'total_price'));
     }
 
     public function store(Request $request)

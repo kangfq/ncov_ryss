@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Mall;
 use App\Order;
 use App\Product;
@@ -12,26 +13,26 @@ class AdminController extends Controller
     //管理首页
     public function index()
     {
-        $malls=Mall::all();
-        return view('admin.index',compact('malls'));
+        $malls = Mall::all();
+        return view('admin.index', compact('malls'));
     }
 
     //添加商品
     public function create($mall_id)
     {
-        $mall=Mall::find($mall_id);
+        $mall = Mall::find($mall_id);
         return view('admin.create', compact('mall'));
     }
 
     //添加商品
     public function store(Request $request)
     {
-        $mall_id=$request->input('mall_id');
+        $mall_id = $request->input('mall_id');
 
         $data = $request->all();
         $create = Product::create($data);
         if ($create) {
-            return redirect(route('admin.product',$mall_id))->with('success', '添加成功');
+            return redirect(route('admin.product', $mall_id))->with('success', '添加成功');
         } else {
             return back()->with('success', '添加失败!!');
         }
@@ -39,7 +40,7 @@ class AdminController extends Controller
     }
 
     //编辑商品
-    public function edit($mall_id,$id)
+    public function edit($mall_id, $id)
     {
         $mall = Mall::find($mall_id);
         $product = Product::find($id);
@@ -49,22 +50,24 @@ class AdminController extends Controller
     //更新商品
     public function update(Request $request, $id)
     {
-        $mall_id=$request->input('mall_id');
+        $mall_id = $request->input('mall_id');
         $product = Product::whereId($id)->update($request->except('_token', '_method'));
         if ($product) {
-            return redirect(route('admin.product',$mall_id))->with('success', '更新成功');
+            return redirect(route('admin.product', $mall_id))->with('success', '更新成功');
         } else {
             return back()->with('success', '更新失败!！！!');
         }
     }
 
     //删除商品
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
-        $mall_id=$request->input('mall_id');
+        $mall_id = $request->input('mall_id');
         $product = Product::destroy($id);
+        //删除商品的时候 删除用户购物车中的对应商品
+        Cart::where('product_id', $id)->delete();
         if ($product) {
-            return redirect(route('admin.product',$mall_id))->with('success', '删除成功');
+            return redirect(route('admin.product', $mall_id))->with('success', '删除成功');
         } else {
             return back()->with('success', '删除失败！！！！');
         }
@@ -98,9 +101,9 @@ class AdminController extends Controller
     //商品管理
     public function product($mall_id)
     {
-        $mall=Mall::find($mall_id);
-        $products = Product::where('is_show', 1)->where('mall_id',$mall_id)->get();
-        return view('admin.product', compact('products','mall_id','mall'));
+        $mall = Mall::find($mall_id);
+        $products = Product::where('is_show', 1)->where('mall_id', $mall_id)->get();
+        return view('admin.product', compact('products', 'mall_id', 'mall'));
     }
 
 
@@ -110,20 +113,20 @@ class AdminController extends Controller
         $state = Mall::find($mall_id)->is_show;
         $c_time = array();
         if ($request->input('created_at') != '') {
-            $c_date=str_replace(' ','',$request->input('created_at'));
-            $start_c_date= explode('~',$c_date)[0];
-            $end_c_date= explode('~',$c_date)[1];
-            $c_time = function ($query) use ($start_c_date,$end_c_date) {
-                $query->whereDate('created_at', '>=', $start_c_date)->whereDate('created_at','<=',$end_c_date);
+            $c_date = str_replace(' ', '', $request->input('created_at'));
+            $start_c_date = explode('~', $c_date)[0];
+            $end_c_date = explode('~', $c_date)[1];
+            $c_time = function ($query) use ($start_c_date, $end_c_date) {
+                $query->whereDate('created_at', '>=', $start_c_date)->whereDate('created_at', '<=', $end_c_date);
             };
         }
         $p_time = array();
         if ($request->input('pay_date') != '') {
-            $p_date=str_replace(' ','',$request->input('pay_date'));
-            $start_p_date= explode('~',$p_date)[0];
-            $end_p_date= explode('~',$p_date)[1];
-            $p_time = function ($query) use ($start_p_date,$end_p_date) {
-                $query->whereDate('pay_time', '>=', $start_p_date)->whereDate('pay_time','<=',$end_p_date);
+            $p_date = str_replace(' ', '', $request->input('pay_date'));
+            $start_p_date = explode('~', $p_date)[0];
+            $end_p_date = explode('~', $p_date)[1];
+            $p_time = function ($query) use ($start_p_date, $end_p_date) {
+                $query->whereDate('pay_time', '>=', $start_p_date)->whereDate('pay_time', '<=', $end_p_date);
             };
         }
         $p_state = array();
@@ -200,7 +203,7 @@ class AdminController extends Controller
     //对商超的数据报表
     public function total_order(Request $request, $mall_id)
     {
-        $mall_name=Mall::find($mall_id)->name;
+        $mall_name = Mall::find($mall_id)->name;
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
         if (strtotime($end_date) - strtotime($start_date) < 0) {
@@ -217,7 +220,7 @@ class AdminController extends Controller
             $start_date)->whereDate('pay_time', '<=', $end_date)->get();
 
         //将序列化的商品取出来
-        $products_arr=array();
+        $products_arr = array();
         foreach ($orders as $key => $value) {
             $products_arr[] = json_decode($value->products, true);
         }
@@ -271,6 +274,6 @@ class AdminController extends Controller
         }
 
         return view('admin.total_order',
-            compact('mall_id','mall_name', 'final_products', 'products_total_money', 'products_total_num'));
+            compact('mall_id', 'mall_name', 'final_products', 'products_total_money', 'products_total_num'));
     }
 }
