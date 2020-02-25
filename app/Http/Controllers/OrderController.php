@@ -27,7 +27,7 @@ class OrderController extends Controller
         return view('home.order.index', compact('orders'));
     }
 
-    //麦德龙
+    //选购界面
     public function create($mall_id)
     {
         $mall = Mall::find($mall_id);

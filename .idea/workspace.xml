@@ -4,20 +4,7 @@
     <list default="true" id="a8b90923-2075-4c0d-a82d-cc6926cae33e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AddressController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AddressController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/product.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home/address/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/address/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home/order/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/order/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/info/buy.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/info/buy.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/info/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/info/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +169,8 @@
       <workItem from="1582357128857" duration="16159000" />
       <workItem from="1582422800741" duration="13025000" />
       <workItem from="1582444645001" duration="1614000" />
-      <workItem from="1582512907426" duration="11607000" />
+      <workItem from="1582512907426" duration="12205000" />
+      <workItem from="1582595443910" duration="307000" />
     </task>
     <servers />
   </component>
@@ -190,10 +178,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="693" y="273" width="662" height="566" key="find.popup" timestamp="1582205012974">
+    <state x="693" y="273" width="662" height="566" key="find.popup" timestamp="1582595747110">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="693" y="273" width="662" height="566" key="find.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1582205012974" />
+    <state x="693" y="273" width="662" height="566" key="find.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1582595747110" />
     <state x="687" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1582535046045">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
