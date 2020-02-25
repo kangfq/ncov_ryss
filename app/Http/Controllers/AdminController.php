@@ -110,14 +110,20 @@ class AdminController extends Controller
         $state = Mall::find($mall_id)->is_show;
         $c_time = array();
         if ($request->input('created_at') != '') {
-            $c_time = function ($query) use ($request) {
-                $query->whereDate('created_at', '=', $request->input('created_at'));
+            $c_date=str_replace(' ','',$request->input('created_at'));
+            $start_c_date= explode('~',$c_date)[0];
+            $end_c_date= explode('~',$c_date)[1];
+            $c_time = function ($query) use ($start_c_date,$end_c_date) {
+                $query->whereDate('created_at', '>=', $start_c_date)->whereDate('created_at','<=',$end_c_date);
             };
         }
         $p_time = array();
         if ($request->input('pay_date') != '') {
-            $p_time = function ($query) use ($request) {
-                $query->whereDate('pay_time', '=', $request->input('pay_date'));
+            $p_date=str_replace(' ','',$request->input('pay_date'));
+            $start_p_date= explode('~',$p_date)[0];
+            $end_p_date= explode('~',$p_date)[1];
+            $p_time = function ($query) use ($start_p_date,$end_p_date) {
+                $query->whereDate('pay_time', '>=', $start_p_date)->whereDate('pay_time','<=',$end_p_date);
             };
         }
         $p_state = array();

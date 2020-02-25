@@ -40,13 +40,13 @@
                         <form action="" method="get">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <label for="inputCity">下单日期</label>
-                                    <input type="date" class="form-control" id="inputCity" name="created_at"
+                                    <label for="created_at">下单日期</label>
+                                    <input type="text" class="form-control" id="created_at" name="created_at" autocomplete="off"
                                            value="{{ Request::input('created_at') }}">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputCity">收款日期</label>
-                                    <input type="date" class="form-control" id="inputCity" name="pay_date"
+                                    <label for="pay_date">收款日期</label>
+                                    <input type="text" class="form-control" id="pay_date" name="pay_date" autocomplete="off"
                                            value="{{ Request::input('pay_date') }}">
                                 </div>
                                 <div class="form-group col-md-3">
@@ -153,7 +153,17 @@
     </div>
 @endsection
 @section('js')
+    <script src="/vendor/laydate/laydate.js"></script> <!-- 改成你的路径 -->
     <script type="text/javascript">
+        laydate.render({
+            elem: '#created_at',
+            range: '~'
+        });
+        laydate.render({
+            elem: '#pay_date',
+            range: '~'
+        });
+
         $(function () {
             //确认收款
             $(document).on("click", ".pay", function () {
