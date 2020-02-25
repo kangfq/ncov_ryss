@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('address')->name('address.')->group(function () {
         Route::get('/', 'AddressController@index')->name('index');
         Route::post('store', 'AddressController@store')->name('store');
+        Route::delete('destroy/{id}', 'AddressController@destroy')->name('destroy')->middleware('admin');
     });
 
 //订单管理
@@ -80,6 +81,13 @@ Route::prefix('admin')->middleware('auth', 'admin')->name('admin.')->group(funct
         Route::get('/{mall_id}', 'OrderRecycleController@index')->name('index');
         Route::post('back_order', 'OrderRecycleController@back_order')->name('back_order');
         Route::delete('destroy/{id}', 'OrderRecycleController@destroy')->name('destroy');
+    });
+
+    //用户管理
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('/', 'UserController@index')->name('index');
+        Route::get('edit/{id}', 'UserController@edit')->name('edit');
+        Route::put('update/{id}', 'UserController@update')->name('update');
     });
 });
 

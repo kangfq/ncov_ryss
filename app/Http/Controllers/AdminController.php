@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    //管理首页
     public function index()
     {
         $malls=Mall::all();
@@ -22,6 +23,7 @@ class AdminController extends Controller
         return view('admin.create', compact('mall'));
     }
 
+    //添加商品
     public function store(Request $request)
     {
         $mall_id=$request->input('mall_id');
@@ -36,6 +38,7 @@ class AdminController extends Controller
 
     }
 
+    //编辑商品
     public function edit($mall_id,$id)
     {
         $mall = Mall::find($mall_id);
@@ -43,6 +46,7 @@ class AdminController extends Controller
         return view('admin.edit', compact('product', 'mall'));
     }
 
+    //更新商品
     public function update(Request $request, $id)
     {
         $mall_id=$request->input('mall_id');

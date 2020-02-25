@@ -36,7 +36,7 @@
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="mall_id" value="{{ $mall->id }}">
                                 <input type="hidden" name="num" value="1">
-                                <button type="submit" class="btn btn-danger"  @if($mall->is_show==0)
+                                <button type="submit" class="btn btn-danger"  onclick="alert('点击继续……')" @if($mall->is_show==0)
                                    disabled
                                 @endif>加入购物车</button>
                             </form>

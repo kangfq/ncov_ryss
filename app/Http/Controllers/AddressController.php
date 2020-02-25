@@ -22,7 +22,17 @@ class AddressController extends Controller
         if ($address) {
             return redirect(route('home'))->with('success', '收货信息创建成功!');
         } else {
-            return back()->with('error', '收货信息创建失败,请重试,多次失败请联系管理员!');
+            return back()->with('success', '收货信息创建失败,请重试,多次失败请联系管理员!');
+        }
+    }
+
+    public function destroy($id)
+    {
+        $del=Address::destroy($id);
+        if ($del) {
+            return back()->with('success', '删除用户收货信息成功。');
+        } else {
+            return back()->with('success', '删除用户收货信息失败！！！');
         }
     }
 
