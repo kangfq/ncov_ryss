@@ -80,7 +80,7 @@ Route::prefix('admin')->middleware('auth', 'admin')->name('admin.')->group(funct
     Route::prefix('recycle')->name('recycle.')->group(function () {
         Route::get('/{mall_id}', 'OrderRecycleController@index')->name('index');
         Route::post('back_order', 'OrderRecycleController@back_order')->name('back_order');
-        Route::delete('destroy/{id}', 'OrderRecycleController@destroy')->name('destroy');
+        Route::delete('destroy', 'OrderRecycleController@destroy')->name('destroy');
     });
 
     //用户管理
@@ -88,6 +88,11 @@ Route::prefix('admin')->middleware('auth', 'admin')->name('admin.')->group(funct
         Route::get('/', 'UserController@index')->name('index');
         Route::get('edit/{id}', 'UserController@edit')->name('edit');
         Route::put('update/{id}', 'UserController@update')->name('update');
+    });
+
+    //商户管理
+    Route::prefix('mall')->name('mall.')->group(function () {
+        Route::get('/', 'MallController@index')->name('index');
     });
 });
 

@@ -34,9 +34,15 @@ class OrderRecycleController extends Controller
         }
     }
 
-    //永久删除订单
-    public function destroy($id)
+    //删除超过15天的订单
+    public function destroy()
     {
+        $del = Order::onlyTrashed()->where('deleted_at', '<', now()->subDay(15))->delete();
+        if ($del) {
+            return back()->with('success', '删除超过15天的订单成功');
+        } else {
+            return back()->with('success', '没有过期订单被删除!!');
+        }
 
     }
 }

@@ -8,9 +8,18 @@
             </div>
         @endif
         <div class="row justify-content-center">
+
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header"><a href="{{ route('admin.index') }}">管理中心</a> / <a href="{{route('admin.order',$mall_id)}}">订单管理</a> / {{ $mall_name }}订单回收站</div>
+                    <div class="card-header"><a href="{{ route('admin.index') }}">管理中心</a> / <a
+                                href="{{route('admin.order',$mall_id)}}">订单管理</a> / {{ $mall_name }}订单回收站
+                        <form action="{{ route('admin.recycle.destroy') }}" method="post" style="display:inline-block;float:right;">
+                            @csrf
+                            @method('delete')
+                           <button type="submit" class="btn btn-sm btn-danger">清理超过15天的订单</button>
+                    </div>
+                    </form>
+
                     <div class="card-body">
                         <table class="table">
                             <thead>
@@ -37,8 +46,10 @@
                                     <td>{{ $order->pro_text }}</td>
                                     <td>{{ $order->total_money }}</td>
                                     <td>{{ $order->deleted_at }}</td>
-                                    <td><a href="javascript:;" onclick="document.getElementById('back_order_{{$order->id}}').submit()">恢复</a>
-                                        <form action="{{ route('admin.recycle.back_order') }}" method="post" id="back_order_{{$order->id}}">
+                                    <td><a href="javascript:;"
+                                           onclick="document.getElementById('back_order_{{$order->id}}').submit()">恢复</a>
+                                        <form action="{{ route('admin.recycle.back_order') }}" method="post"
+                                              id="back_order_{{$order->id}}">
                                             @csrf
                                             <input type="hidden" name="order_id" value="{{ $order->id }}">
                                         </form>

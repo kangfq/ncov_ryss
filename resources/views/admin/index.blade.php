@@ -13,14 +13,11 @@
                     <button type="button" disabled class="list-group-item list-group-item-action active">
                         系统管理
                     </button>
-                    <a href="#">
+                    <a href="{{ route('admin.user.index') }}">
                         <button type="button" class="list-group-item list-group-item-action">用户管理</button>
                     </a>
-                    <a href="#">
+                    <a href="{{ route('admin.mall.index') }}">
                         <button type="button" class="list-group-item list-group-item-action">商户管理</button>
-                    </a>
-                    <a href="#">
-                        <button type="button" class="list-group-item list-group-item-action">过期订单管理</button>
                     </a>
                 </div>
             </div>

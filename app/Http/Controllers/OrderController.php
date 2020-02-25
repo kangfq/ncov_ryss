@@ -135,7 +135,7 @@ class OrderController extends Controller
             $del = Order::destroy($id);
             if ($del) {
                 if ($is_admin) {
-                    return redirect(route('admin.order'))->with('success', '订单删除成功!');
+                    return back()->with('success', '订单删除成功!');
                 }
                 return redirect(route('order.index'))->with('success', '订单删除成功!');
             } else {

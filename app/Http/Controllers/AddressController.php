@@ -26,9 +26,9 @@ class AddressController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy($user_id)
     {
-        $del=Address::destroy($id);
+        $del=Address::where('user_id',$user_id)->delete();
         if ($del) {
             return back()->with('success', '删除用户收货信息成功。');
         } else {
