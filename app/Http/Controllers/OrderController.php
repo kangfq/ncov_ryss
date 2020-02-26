@@ -86,7 +86,8 @@ class OrderController extends Controller
                     if ($product->stock - $cart->total_mum <= 0) {
                         throw new \Exception('当前商品'.$product->name.'库存不足，提交订单失败!');
                     }
-                    Product::find($cart->product_id)->LockForUpdate()->decrement('stock',$cart->total_num);
+                    Product::find($cart->product_id)->decrement('stock',$cart->total_num);
+//                    Product::find($cart->product_id)->LockForUpdate()->decrement('stock',$cart->total_num);
 //                    $stock = Product::find($cart->product_id)->stock;
 //                    Db::table('products')->where('id',
 //                        $cart->product_id)->LockForUpdate()->update(['stock' => $stock - $cart->total_num]);
