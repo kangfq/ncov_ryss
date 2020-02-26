@@ -9,21 +9,20 @@
         @endif
         @if($mall->is_show==0)
             <div class="alert alert-danger" role="alert">
-                {{ $mall->name }}暂时无法购物，请留意群内通知。
+                {{ $mall->name }}当前休息中，你可以逛逛其他商家。
             </div>
         @endif
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">首页</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">个人中心</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $mall->name }}商品选购</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $mall->name }}</li>
                 <li class="breadcrumb-item"><a href="{{ route('cart.index',$mall->id) }}">我的购物车</a></li>
             </ol>
         </nav>
-        <div class="row justify-content-center">
+        <div class="row">
             @foreach($products as $product)
-                <div class="con-md-4">
-                    <div class="card" style="width: 22rem; margin: 10px;">
+                <div class="col-md-4">
+                    <div class="card" style="width: 20rem; margin: 10px;">
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">￥{{ $product->money }}

@@ -14,7 +14,6 @@
             </ol>
         </nav>
         <div class="row ">
-
             @foreach($orders as $order)
                 <div class="col-md-4">
                     <div class="card" style="width: 92%; margin: 10px;">
