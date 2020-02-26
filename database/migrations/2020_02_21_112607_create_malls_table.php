@@ -16,6 +16,7 @@ class CreateMallsTable extends Migration
         Schema::create('malls', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->char('name');
+            $table->char('pay_qrcode');
             $table->boolean('is_show');
             $table->timestamps();
         });

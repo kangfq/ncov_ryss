@@ -24,6 +24,7 @@ class CreateOrdersTable extends Migration
             $table->integer('total_num');
             $table->timestamp('pay_time')->nullable();
             $table->boolean('is_success')->default(0)->comment('确认收货');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
