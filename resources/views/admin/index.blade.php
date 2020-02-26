@@ -7,7 +7,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-md-12" style="margin-bottom: 30px;">
                 <div class="list-group">
                     <button type="button" disabled class="list-group-item list-group-item-action active">

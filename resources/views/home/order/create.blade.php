@@ -9,7 +9,7 @@
         @endif
         @if($mall->is_show==0)
             <div class="alert alert-danger" role="alert">
-                {{ $mall->name }}暂时未开放订菜，请留意群内通知！
+                {{ $mall->name }}暂时无法购物，请留意群内通知。
             </div>
         @endif
         <nav aria-label="breadcrumb">
@@ -26,7 +26,8 @@
                     <div class="card" style="width: 22rem; margin: 10px;">
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">￥{{ $product->money }} 剩余库存：{{ $product->stock }}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">￥{{ $product->money }}
+                                剩余库存：{{ $product->stock }}</h6>
                             <div class="form-group">
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"
                                           disabled>{{ $product->description }}</textarea>
@@ -36,9 +37,21 @@
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="mall_id" value="{{ $mall->id }}">
                                 <input type="hidden" name="num" value="1">
-                                <button type="submit" class="btn btn-danger"  onclick="alert('点击继续……')" @if($mall->is_show==0 || $product->stock <=0)
-                                   disabled
-                                @endif>加入购物车</button>
+                                @if($mall->is_show==0)
+                                    <button type="submit" class="btn btn-warning" onclick="alert('点击继续……')" disabled>
+                                        商家休息中...
+                                    </button>
+                                @endif
+                                @if($mall->is_show==1 )
+                                    @if($product->stock <= 0)
+                                        <button type="submit" class="btn btn-secondary" onclick="alert('点击继续……')"
+                                                disabled>卖完了...
+                                        </button>
+                                    @else
+                                        <button type="submit" class="btn btn-danger" onclick="alert('点击继续……')">加入购物车
+                                        </button>
+                                    @endif
+                                @endif
                             </form>
                         </div>
                     </div>

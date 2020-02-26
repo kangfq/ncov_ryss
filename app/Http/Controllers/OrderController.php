@@ -74,9 +74,9 @@ class OrderController extends Controller
         $data['total_num'] = array_sum($carts->pluck('total_num')->toArray());
         $data['mall_id'] = $mall_id;
         try {
-            DB::transaction(function () use ($data, $mall_id, $carts) {
+            $order = DB::transaction(function () use ($data, $mall_id, $carts) {
                 //创建订单
-                Order::create($data);
+                $order = Order::create($data);
                 //清空购物车
                 Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->delete();
                 //减商品对应的库存
@@ -86,13 +86,16 @@ class OrderController extends Controller
                     if ($product->stock - $cart->total_mum <= 0) {
                         throw new \Exception('当前商品'.$product->name.'库存不足，提交订单失败!');
                     }
-                    Product::find($cart->product_id)->decrement('stock', $cart->total_num);
+                    $stock = Product::find($cart->product_id)->stock;
+                    Db::table('products')->where('id',
+                        $cart->product_id)->LockForUpdate()->update(['stock' => $stock - $cart->total_num]);
                 }
+                return $order;
             }, 5);
         } catch (\Exception $exception) {
             return back()->with('success', '提交订单失败!!!!!'.$exception->getMessage());
         }
-        return redirect(route('order.index'))->with('success', '提交订单成功,请联系志愿者进行转账。');
+        return redirect(route('order.show', $order->id))->with('pay_success', '提交订单成功');
     }
 
     //显示订单

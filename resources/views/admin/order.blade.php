@@ -10,10 +10,9 @@
         <div class="row justify-content-center">
             <div class="col-md-12" style="margin-top: 10px;">
                 <div class="card">
-                    <div class="card-header"><a href="{{ route('admin.index') }}">管理中心</a> / @if($mall_id==1) 麦德龙@else
-                            中百@endif订单信息
+                    <div class="card-header"><a href="{{ route('admin.index') }}">管理中心</a> / {{ $mall->name }}订单信息
                         <div style="display: inline-block;float: right;">
-                            @if($state==1)
+                            @if($mall->is_show==1)
                                 <button type="button" class="btn btn-sm btn-success" style="cursor: default;">当前状态：接单中
                                 </button>
                             @else
@@ -23,14 +22,14 @@
                             <button type="button" class="btn btn-sm btn-dark"
                                     onclick="document.getElementById('end').submit();">停止接单
                             </button>
-                            <form action="{{route('admin.trigger',$mall_id) }}" id="end" style="display: none;"
+                            <form action="{{route('admin.trigger',$mall->id) }}" id="end" style="display: none;"
                                   method="post">
                                 <input type="text" name="state" value="0">
                             </form>
                             <button type="button" class="btn btn-sm btn-danger"
                                     onclick="document.getElementById('start').submit();">开始接单
                             </button>
-                            <form action="{{route('admin.trigger',$mall_id) }}" id="start" style="display: none;"
+                            <form action="{{route('admin.trigger',$mall->id) }}" id="start" style="display: none;"
                                   method="post">
                                 <input type="text" name="state" value="1">
                             </form>
@@ -71,19 +70,19 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm">筛选</button>
-                            <a href="{{ route('admin.order',$mall_id) }}">
+                            <a href="{{ route('admin.order',$mall->id) }}">
                                 <button type="button" class="btn btn-primary btn-sm">重置</button>
                             </a>
                             <div style="float: right;">
-                                <a href="{{ route('admin.recycle.index',$mall_id) }}">
+                                <a href="{{ route('admin.recycle.index',$mall->id) }}">
                                     <button type="button" class="btn btn-sm btn-danger">订单回收站</button>
                                 </a>
-                                <a href="{{ route('order.export_order',['id'=>$mall_id,'created_at'=>Request::input('created_at'),'pay_date'=>Request::input('pay_date'),'pay_state'=>Request::input('pay_state'),'is_success'=>Request::input('is_success')]) }}">
+                                <a href="{{ route('order.export_order',['id'=>$mall->id,'created_at'=>Request::input('created_at'),'pay_date'=>Request::input('pay_date'),'pay_state'=>Request::input('pay_state'),'is_success'=>Request::input('is_success')]) }}">
                                     <button type="button" class="btn btn-danger btn-sm">导出到Excel</button>
                                 </a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="window.print();">打印本页
                                 </button>
-                                <a href="{{ route('admin.total_order',$mall_id) }}">
+                                <a href="{{ route('admin.total_order',$mall->id) }}">
                                     <button type="button" class="btn btn-danger btn-sm">商超报表</button>
                                 </a>
                             </div>

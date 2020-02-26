@@ -7,6 +7,34 @@
                 {{ session('success') }}
             </div>
         @endif
+
+        @if (session('pay_success'))
+            <div class="modal fade" id="order_success" data-backdrop="static" tabindex="-1" role="dialog"
+                 aria-labelledby="order_success" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel"> {{ session('pay_success') }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <img src="{{$order->mall->pay_qrcode}}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">加好友付款需知</h5>
+                                    <p class="card-text">订单号+姓名+电话+金额 然后转账</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -46,7 +74,8 @@
                                         </button>
                                     </a>
                                     <div style="display: none;">
-                                        <form action="{{ route('order.success',$order->id) }}" method="post" id="success_order">
+                                        <form action="{{ route('order.success',$order->id) }}" method="post"
+                                              id="success_order">
                                             <input type="text" name="order_id" value="{{ $order->id }}"/>
                                         </form>
                                         <form action="{{ route('order.destroy',$order->id) }}" method="post"
@@ -64,4 +93,11 @@
             </div>
         </div>
     </div>
+@endsection
+@section('js')
+    <script type="text/javascript">
+        $(function () {
+            $("#order_success").modal('show');
+        })
+    </script>
 @endsection

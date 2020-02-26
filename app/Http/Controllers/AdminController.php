@@ -110,7 +110,7 @@ class AdminController extends Controller
     //订单管理
     public function order(Request $request, $mall_id)
     {
-        $state = Mall::find($mall_id)->is_show;
+        $mall = Mall::find($mall_id);
         $c_time = array();
         if ($request->input('created_at') != '') {
             $c_date = str_replace(' ', '', $request->input('created_at'));
@@ -186,7 +186,7 @@ class AdminController extends Controller
             }
         }
 
-        return view('admin.order', compact('orders', 'mall_id', 'base', 'state'));
+        return view('admin.order', compact('orders', 'mall', 'base'));
     }
 
     //切换某商超是否开始接单
