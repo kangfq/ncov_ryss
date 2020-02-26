@@ -21,7 +21,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="card">
-                                <img src="{{$order->mall->pay_qrcode}}" class="card-img-top" alt="...">
+                                <img src="{{$order->mall->pay_qrcode}}" class="card-img-top" alt="..." style="width:90%;">
                                 <div class="card-body">
                                     <h5 class="card-title">加好友付款需知</h5>
                                     <p class="card-text">订单号+姓名+电话+金额 然后转账</p>
