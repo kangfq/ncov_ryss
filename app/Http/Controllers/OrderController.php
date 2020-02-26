@@ -64,7 +64,6 @@ class OrderController extends Controller
             return back()->with('success', '您的购物车中有失效的商品,请删除后重新提交订单!!!');
         }
 
-
         $address = Address::where('user_id', Auth::id())->first();
         $data['user_id'] = Auth::id();
         $data['name'] = $address->name;
@@ -77,8 +76,6 @@ class OrderController extends Controller
             $order = DB::transaction(function () use ($data, $mall_id, $carts) {
                 //创建订单
                 $order = Order::create($data);
-                //清空购物车
-                Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->delete();
                 //减商品对应的库存
                 foreach ($carts as $cart) {
                     $product = Product::find($cart->product_id);
@@ -86,12 +83,10 @@ class OrderController extends Controller
                     if ($product->stock - $cart->total_mum <= 0) {
                         throw new \Exception('当前商品'.$product->name.'库存不足，提交订单失败!');
                     }
-                    Product::find($cart->product_id)->decrement('stock',$cart->total_num);
-//                    Product::find($cart->product_id)->LockForUpdate()->decrement('stock',$cart->total_num);
-//                    $stock = Product::find($cart->product_id)->stock;
-//                    Db::table('products')->where('id',
-//                        $cart->product_id)->LockForUpdate()->update(['stock' => $stock - $cart->total_num]);
+                    $product->decrement('stock', $cart->total_num);
                 }
+                //清空购物车
+                Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->delete();
                 return $order;
             }, 5);
         } catch (\Exception $exception) {
