@@ -117,7 +117,7 @@ class OrderController extends Controller
     {
         $order = Order::where('user_id', Auth::id())->where('id', $id)->first();
         if (is_null($order->pay_time)) {
-            return back()->with('success', '确认收货失败！！因为没有付钱。如果您已经支付，请联系卖家在后台确认收钱！');
+            return back()->with('success', '确认收货失败！此订单未付款。如果您已经付款，请联系商家确认收款！');
         }
         $update = $order->update(['is_success' => 1]);
         if ($update) {
