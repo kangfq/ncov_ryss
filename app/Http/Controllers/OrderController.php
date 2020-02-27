@@ -78,9 +78,9 @@ class OrderController extends Controller
                 $order = Order::create($data);
                 //减商品对应的库存
                 foreach ($carts as $cart) {
-                    $product = Product::find($cart->product_id);
+                    $product = Product::lockForUpdate()->find($cart->product_id);
                     //如果库存为负数则抛出异常
-                    if ($product->stock - $cart->total_mum <= 0) {
+                    if ($product->stock - $cart->total_mum < 0) {
                         throw new \Exception('当前商品'.$product->name.'库存不足，提交订单失败!');
                     }
                     $product->decrement('stock', $cart->total_num);

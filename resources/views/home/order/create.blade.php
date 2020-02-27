@@ -37,7 +37,7 @@
                                 <input type="hidden" name="mall_id" value="{{ $mall->id }}">
                                 <input type="hidden" name="num" value="1">
                                 @if($mall->is_show==0)
-                                    <button type="submit" class="btn btn-warning" onclick="alert('点击继续……')" disabled>
+                                    <button type="submit" class="btn btn-warning" onclick="alert('点击继续……')" disabled >
                                         商家休息中...
                                     </button>
                                 @endif
