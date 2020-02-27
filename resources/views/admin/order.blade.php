@@ -178,7 +178,6 @@
                     url: "{{ route('admin.pay') }}",
                     success: function (e) {
                         if (e.state == 1) {
-                            alert(e.msg);
                             _this.addClass("btn-dark").addClass("pay_back").removeClass("btn-danger").removeClass("pay");
                             _this.text("取消收款")
                         }
@@ -202,7 +201,6 @@
                     url: "{{ route('admin.pay_back') }}",
                     success: function (e) {
                         if (e.state == 1) {
-                            alert(e.msg);
                             _this.removeClass("btn-dark").removeClass("pay_back").addClass("btn-danger").addClass("pay");
                             _this.text("确认收款")
                         }
