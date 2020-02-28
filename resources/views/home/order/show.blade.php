@@ -50,6 +50,9 @@
                 </div>
             </div>
         </div>
+            <hr>
+            <a href="{{ route('order.index') }}"> <button class="btn btn-danger btn-sm">查看所有订单</button></a>
+
     </div>
 
     @if (session('pay_success'))

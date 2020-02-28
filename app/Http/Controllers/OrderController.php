@@ -107,11 +107,6 @@ class OrderController extends Controller
         return view('home.order.show', compact('order', 'pro_text'));
     }
 
-    public function edit()
-    {
-        return '编辑';
-    }
-
     //确认收货
     public function success(Request $request, $id)
     {
