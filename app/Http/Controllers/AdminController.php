@@ -6,7 +6,9 @@ use App\Cart;
 use App\Mall;
 use App\Order;
 use App\Product;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminController extends Controller
 {
@@ -275,5 +277,17 @@ class AdminController extends Controller
 
         return view('admin.total_order',
             compact('mall_id', 'mall_name', 'final_products', 'products_total_money', 'products_total_num'));
+    }
+
+    //购买排行
+    public function buytop(Request $request)
+    {
+        $perPage = 10;
+        $page = $request->input("page",1)-1;
+        $users = User::all()->sortByDesc('total_money')->values()->skip($page*$perPage)->take($perPage);
+        $count = User::all()->sortByDesc('total_money')->values()->count();
+        $users=new LengthAwarePaginator($users,$count,$perPage);
+        $users->withPath("buytop");
+        return view('admin.buytop', compact('users'));
     }
 }

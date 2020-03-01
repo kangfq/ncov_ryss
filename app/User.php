@@ -28,6 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $appends = ['total_money'];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -42,5 +44,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Address::class);
     }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function getTotalMoneyAttribute()
+    {
+        $order = Order::where('user_id', $this->id)->whereNotNull('pay_time')->get()->toArray();
+        return array_sum(array_column($order, 'total_money'));
+    }
+
 
 }

@@ -10,9 +10,15 @@ class Order extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
     public function mall()
     {
         return $this->belongsTo(Mall::class);
+    }
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
     }
 
 }

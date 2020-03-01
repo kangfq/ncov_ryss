@@ -47,12 +47,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('destroy/{id}', 'OrderController@destroy')->name('destroy');
         Route::get('export_order/{id}', 'OrderController@export_order')->middleware('admin')->name('export_order');
     });
-//商品管理
-    Route::prefix('product')->name('product.')->group(function () {
-        Route::get('/', 'productController@index')->name('index');
-        Route::get('/create', 'productController@create')->name('create');
-        Route::post('store', 'productController@store')->name('store');
-    });
 //购物车
     Route::prefix('cart')->name('cart.')->group(function () {
         Route::get('/{mall_id}', 'CartController@index')->name('index');
@@ -75,6 +69,7 @@ Route::prefix('admin')->middleware('auth', 'admin')->name('admin.')->group(funct
     Route::get('order/{mall_id}', 'AdminController@order')->name('order');
     Route::post('trigger/{id}', 'AdminController@trigger')->name('trigger');
     Route::get('total_order/{mall_id}', 'AdminController@total_order')->name('total_order');
+    Route::get('buytop', 'AdminController@buytop')->name('buytop');
 
     //订单回收站
     Route::prefix('recycle')->name('recycle.')->group(function () {

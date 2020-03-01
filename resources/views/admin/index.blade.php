@@ -16,6 +16,9 @@
                     <a href="{{ route('admin.user.index') }}">
                         <button type="button" class="list-group-item list-group-item-action">用户管理</button>
                     </a>
+                    <a href="{{ route('admin.buytop') }}">
+                        <button type="button" class="list-group-item list-group-item-action">剁手排行</button>
+                    </a>
                     <a href="{{ route('admin.mall.index') }}">
                         <button type="button" class="list-group-item list-group-item-action">商户管理</button>
                     </a>
