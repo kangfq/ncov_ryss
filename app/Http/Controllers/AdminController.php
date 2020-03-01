@@ -284,8 +284,9 @@ class AdminController extends Controller
     {
         $perPage = 10;
         $page = $request->input("page",1)-1;
+        $count = User::all()->count();
+
         $users = User::all()->sortByDesc('total_money')->values()->skip($page*$perPage)->take($perPage);
-        $count = User::all()->sortByDesc('total_money')->values()->count();
         $users=new LengthAwarePaginator($users,$count,$perPage);
         $users->withPath("buytop");
         return view('admin.buytop', compact('users'));
