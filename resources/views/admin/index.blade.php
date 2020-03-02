@@ -26,6 +26,9 @@
                     <a href="{{ route('message.index') }}">
                         <button type="button" class="list-group-item list-group-item-action">建议&留言管理</button>
                     </a>
+                    <a href="{{ route('admin.findpassword') }}">
+                        <button type="button" class="list-group-item list-group-item-action">密码哈希</button>
+                    </a>
                 </div>
             </div>
             @foreach($malls as $mall)

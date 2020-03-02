@@ -77,6 +77,7 @@ Route::prefix('admin')->middleware('auth', 'admin')->name('admin.')->group(funct
     Route::post('trigger/{id}', 'AdminController@trigger')->name('trigger');
     Route::get('total_order/{mall_id}', 'AdminController@total_order')->name('total_order');
     Route::get('buytop', 'AdminController@buytop')->name('buytop');
+    Route::match(['get','post'],'findpassword', 'AdminController@findpassword')->name('findpassword');
 
     //订单回收站
     Route::prefix('recycle')->name('recycle.')->group(function () {

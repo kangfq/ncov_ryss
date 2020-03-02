@@ -283,12 +283,23 @@ class AdminController extends Controller
     public function buytop(Request $request)
     {
         $perPage = 10;
-        $page = $request->input("page",1)-1;
+        $page = $request->input("page", 1) - 1;
         $count = User::all()->count();
 
-        $users = User::all()->sortByDesc('total_money')->values()->skip($page*$perPage)->take($perPage);
-        $users=new LengthAwarePaginator($users,$count,$perPage);
+        $users = User::all()->sortByDesc('total_money')->values()->skip($page * $perPage)->take($perPage);
+        $users = new LengthAwarePaginator($users, $count, $perPage);
         $users->withPath("buytop");
         return view('admin.buytop', compact('users'));
+    }
+
+    public function findpassword(Request $request)
+    {
+        if ($request->method() == 'GET') {
+            return view('admin.findpassword');
+        }
+        if ($request->method() == 'POST') {
+            $password = $request->input('password');
+            dump(bcrypt($password));
+        }
     }
 }
