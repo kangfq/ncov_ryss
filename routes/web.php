@@ -53,6 +53,13 @@ Route::middleware('auth')->group(function () {
         Route::post('store', 'CartController@store')->name('store');
         Route::delete('destroy/{id}', 'CartController@destroy')->name('destroy');
     });
+    //建议留言
+    Route::prefix('message')->name('message.')->group(function () {
+        Route::get('/', 'MessageController@index')->name('index')->middleware('admin');
+        Route::get('create', 'MessageController@create')->name('create');
+        Route::post('store', 'MessageController@store')->name('store');
+        Route::delete('destroy/{id}', 'MessageController@destroy')->name('destroy')->middleware('admin');
+    });
 });
 
 //后台管理

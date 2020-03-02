@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8b90923-2075-4c0d-a82d-cc6926cae33e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,18 +132,18 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/message" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\laragon\www\ryss\resources\views\message" />
       <recent name="E:\laragon\www\ryss\resources\views\admin" />
       <recent name="E:\laragon\www\ryss\public\vendor\qrcode" />
       <recent name="E:\laragon\www\ryss\public\vendor" />
       <recent name="E:\laragon\www\ryss\resources\views\admin\mall" />
-      <recent name="E:\laragon\www\ryss\resources\views\user" />
     </key>
   </component>
   <component name="RunManager">
@@ -183,6 +186,8 @@
       <workItem from="1582774290538" duration="6470000" />
       <workItem from="1582858655492" duration="868000" />
       <workItem from="1583056675186" duration="6999000" />
+      <workItem from="1583135428079" duration="1273000" />
+      <workItem from="1583136796361" duration="1338000" />
     </task>
     <servers />
   </component>
@@ -215,9 +220,9 @@
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="693" y="273" width="662" height="566" key="find.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1582595747110" />
-    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1583066384754">
+    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1583135987842">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1583066384754" />
+    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1583135987842" />
   </component>
 </project>

@@ -22,6 +22,9 @@
                     <a href="{{ route('order.index') }}">
                         <li class="list-group-item">我的订单</li>
                     </a>
+                    <a href="{{ route('message.create') }}">
+                        <li class="list-group-item">建议&留言</li>
+                    </a>
                     @if(Auth()->check())
                         @if(Auth()->user()->is_admin==1)
                             <a href="{{ route('admin.index') }}">
