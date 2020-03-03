@@ -95,6 +95,7 @@
                                 <th scope="col">订单号</th>
                                 <th scope="col">商家</th>
                                 <th scope="col">下单日期</th>
+                                <th scope="col">用户名</th>
                                 <th scope="col">姓名</th>
                                 <th scope="col">电话</th>
                                 <th scope="col">商品详情</th>
@@ -111,6 +112,7 @@
                                     <th>{{ $order['id'] }}</th>
                                     <td>{{ $order['mall']->name }}</td>
                                     <td>{{ $order['created_at'] }}</td>
+                                    <td>{{ $order['user']['name'] }}</td>
                                     <td>{{ $order['name'] }}</td>
                                     <td>{{ $order['tel']}}</td>
                                     <td>{{ $order['pro_text'] }}</td>
@@ -152,7 +154,7 @@
     </div>
 @endsection
 @section('js')
-    <script src="/vendor/laydate/laydate.js"></script> <!-- 改成你的路径 -->
+    <script src="/vendor/laydate/laydate.js"></script>
     <script type="text/javascript">
         laydate.render({
             elem: '#created_at',

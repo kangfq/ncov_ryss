@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="a8b90923-2075-4c0d-a82d-cc6926cae33e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Order.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/order.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/order.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/home/cart/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/cart/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -132,7 +136,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/aged" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -140,11 +144,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\laragon\www\ryss\resources\views\admin\aged" />
       <recent name="E:\laragon\www\ryss\resources\views\admin" />
       <recent name="E:\laragon\www\ryss\resources\views\message" />
       <recent name="E:\laragon\www\ryss\public\vendor\qrcode" />
       <recent name="E:\laragon\www\ryss\public\vendor" />
-      <recent name="E:\laragon\www\ryss\resources\views\admin\mall" />
     </key>
   </component>
   <component name="RunManager">
@@ -193,6 +197,12 @@
       <workItem from="1583138762584" duration="825000" />
       <workItem from="1583139605789" duration="155000" />
       <workItem from="1583140098643" duration="1332000" />
+      <workItem from="1583142559515" duration="1324000" />
+      <workItem from="1583144199295" duration="3174000" />
+      <workItem from="1583150240634" duration="2358000" />
+      <workItem from="1583204940558" duration="2208000" />
+      <workItem from="1583209121373" duration="660000" />
+      <workItem from="1583209801455" duration="2605000" />
     </task>
     <servers />
   </component>
@@ -213,6 +223,10 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="761" y="346" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1583144519773">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="761" y="346" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2048.1112@0.0.2048.1112" timestamp="1583144519773" />
     <state x="705" y="283" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1583056720867">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
@@ -229,9 +243,9 @@
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="693" y="273" width="662" height="566" key="find.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1582595747110" />
-    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1583140147373">
+    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1583209740287">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1583140147373" />
+    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1583209740287" />
   </component>
 </project>

@@ -93,6 +93,16 @@ Route::prefix('admin')->middleware('auth', 'admin')->name('admin.')->group(funct
         Route::put('update/{id}', 'UserController@update')->name('update');
     });
 
+    //老年人管理
+    Route::prefix('aged')->name('aged.')->group(function () {
+        Route::get('/', 'AgedController@index')->name('index');
+        Route::get('edit/{id}', 'AgedController@edit')->name('edit');
+        Route::put('update/{id}', 'AgedController@update')->name('update');
+        Route::get('create', 'AgedController@create')->name('create');
+        Route::post('store', 'AgedController@store')->name('store');
+        Route::delete('destroy/{id}', 'AgedController@destroy')->name('destroy');
+    });
+
     //商户管理
     Route::prefix('mall')->name('mall.')->group(function () {
         Route::get('/', 'MallController@index')->name('index');

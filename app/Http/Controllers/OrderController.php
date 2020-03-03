@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\Aged;
 use App\Cart;
 use App\Mall;
 use App\Order;
@@ -64,10 +65,19 @@ class OrderController extends Controller
             return back()->with('success', '您的购物车中有失效的商品,请删除后重新提交订单!!!');
         }
 
-        $address = Address::where('user_id', Auth::id())->first();
+        //是否为代买模式 只允许管理员代买
+        $aged_id=$request->input('aged_id');
+        if($aged_id==0 && Auth::user()->is_admin==1){
+            $address = Address::where('user_id', Auth::id())->first();
+            $data['name'] = $address->name;
+            $data['tel'] = $address->tel;
+        }else{
+            $address = Aged::find($aged_id);
+            $data['name'] = $address->name;
+            $data['tel'] = $address->tel;
+        }
+
         $data['user_id'] = Auth::id();
-        $data['name'] = $address->name;
-        $data['tel'] = $address->tel;
         $data['products'] = json_encode($carts->toArray());
         $data['total_money'] = $total_price;
         $data['total_num'] = array_sum($carts->pluck('total_num')->toArray());

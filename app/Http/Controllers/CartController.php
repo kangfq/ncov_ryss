@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aged;
 use App\Cart;
 use App\Mall;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ class CartController extends Controller
 
     public function index($mall_id)
     {
+        $ageds=Aged::all();
         $mall = Mall::find($mall_id);
         //购物车数量
         $carts = Cart::with('product')->where('user_id', Auth::id())->where('mall_id', $mall_id)->get();
@@ -25,7 +27,7 @@ class CartController extends Controller
             }
         }
 
-        return view('home.cart.index', compact('mall', 'carts', 'total_price'));
+        return view('home.cart.index', compact('mall', 'carts', 'total_price','ageds'));
     }
 
     public function store(Request $request)
