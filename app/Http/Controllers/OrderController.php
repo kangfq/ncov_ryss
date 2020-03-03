@@ -67,12 +67,12 @@ class OrderController extends Controller
 
         //是否为代买模式 只允许管理员代买
         $aged_id=$request->input('aged_id');
-        if($aged_id==0 && Auth::user()->is_admin==1){
-            $address = Address::where('user_id', Auth::id())->first();
+        if($aged_id!=0 && Auth::user()->is_admin==1){
+            $address = Aged::find($aged_id);
             $data['name'] = $address->name;
             $data['tel'] = $address->tel;
         }else{
-            $address = Aged::find($aged_id);
+            $address = Address::where('user_id', Auth::id())->first();
             $data['name'] = $address->name;
             $data['tel'] = $address->tel;
         }
