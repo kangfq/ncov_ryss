@@ -22,6 +22,11 @@ class AgedController extends Controller
     public function store(Request $request)
     {
         $create = Aged::create($request->all());
+        if($create){
+            return back()->with('success','新建成功');
+        }else{
+            return back()->with('success','新建失败!!!');
+        }
 
     }
 
