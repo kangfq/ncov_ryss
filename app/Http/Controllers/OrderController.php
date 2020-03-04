@@ -161,6 +161,12 @@ class OrderController extends Controller
     public function export_order(Request $request, $id)
     {
         $mall_id = $id;
+        $s_id = array();
+        if ($request->input('s_id') != '') {
+            $s_id = function ($query) use ($request) {
+                $query->where('id',$request->input('s_id'));
+            };
+        }
 
         $c_time = array();
         if ($request->input('created_at') != '') {
@@ -207,6 +213,7 @@ class OrderController extends Controller
             ->where($p_time)
             ->where($p_state)
             ->where($success)
+            ->where($s_id)
             ->get();
 
         foreach ($orders as $key => $value) {

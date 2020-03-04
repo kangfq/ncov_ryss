@@ -38,6 +38,11 @@
                     <div class="card-header">
                         <form action="" method="get">
                             <div class="form-row">
+                                <div class="form-group col-md-1">
+                                    <label for="created_at">订单号</label>
+                                    <input type="text" class="form-control" name="s_id" autocomplete="off"
+                                           value="{{ Request::input('s_id') }}">
+                                </div>
                                 <div class="form-group col-md-3">
                                     <label for="created_at">下单日期</label>
                                     <input type="text" class="form-control" id="created_at" name="created_at" autocomplete="off"
@@ -58,7 +63,7 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-2">
                                     <label for="inputState">收货状态</label>
                                     <select id="inputState" class="form-control" name="is_success">
                                         <option selected value="">--未指定--</option>
@@ -77,7 +82,12 @@
                                 <a href="{{ route('admin.recycle.index',$mall->id) }}">
                                     <button type="button" class="btn btn-sm btn-danger">订单回收站</button>
                                 </a>
-                                <a href="{{ route('order.export_order',['id'=>$mall->id,'created_at'=>Request::input('created_at'),'pay_date'=>Request::input('pay_date'),'pay_state'=>Request::input('pay_state'),'is_success'=>Request::input('is_success')]) }}">
+                                <a href="{{ route('order.export_order',['id'=>$mall->id,
+'created_at'=>Request::input('created_at'),
+'pay_date'=>Request::input('pay_date'),
+'pay_state'=>Request::input('pay_state'),
+'is_success'=>Request::input('is_success'),
+'s_id'=>Request::input('s_id')]) }}">
                                     <button type="button" class="btn btn-danger btn-sm">导出到Excel</button>
                                 </a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="window.print();">打印本页

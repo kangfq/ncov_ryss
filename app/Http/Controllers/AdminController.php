@@ -113,6 +113,12 @@ class AdminController extends Controller
     public function order(Request $request, $mall_id)
     {
         $mall = Mall::find($mall_id);
+        $s_id = array();
+        if ($request->input('s_id') != '') {
+            $s_id = function ($query) use ($request) {
+                $query->where('id',$request->input('s_id'));
+            };
+        }
         $c_time = array();
         if ($request->input('created_at') != '') {
             $c_date = str_replace(' ', '', $request->input('created_at'));
@@ -159,6 +165,7 @@ class AdminController extends Controller
             ->where($p_time)
             ->where($p_state)
             ->where($success)
+            ->where($s_id)
             ->paginate(10);
 
         //汇总信息
@@ -167,6 +174,7 @@ class AdminController extends Controller
             ->where($p_time)
             ->where($p_state)
             ->where($success)
+            ->where($s_id)
             ->get();
         $base['total_num'] = array_sum($orders_count->pluck('total_num')->toArray());
         $base['total_money'] = array_sum($orders_count->pluck('total_money')->toArray());
