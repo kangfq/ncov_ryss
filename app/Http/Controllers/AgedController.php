@@ -22,21 +22,28 @@ class AgedController extends Controller
     public function store(Request $request)
     {
         $create = Aged::create($request->all());
-        if($create){
-            return back()->with('success','新建成功');
-        }else{
-            return back()->with('success','新建失败!!!');
+        if ($create) {
+            return back()->with('success', '新建成功');
+        } else {
+            return back()->with('success', '新建失败!!!');
         }
 
     }
 
     public function edit($id)
     {
-
+        $aged = Aged::find($id);
+        return view('admin.aged.edit', compact('aged'));
     }
 
-    public function update(Request $reques, $id)
+    public function update(Request $request, $id)
     {
+        $update=Aged::find($id)->update($request->all());
+        if ($update) {
+            return redirect(route('admin.aged.index'))->with('success', '更新成功');
+        } else {
+            return back()->with('success', '更新失败');
+        }
 
     }
 

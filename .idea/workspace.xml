@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a8b90923-2075-4c0d-a82d-cc6926cae33e" name="Default Changelist" comment="" />
+    <list default="true" id="a8b90923-2075-4c0d-a82d-cc6926cae33e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AgedController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AgedController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/aged/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/aged/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/aged/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/aged/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home/cart/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/cart/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/index.blade.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -193,7 +200,14 @@
       <workItem from="1583150240634" duration="2358000" />
       <workItem from="1583204940558" duration="2208000" />
       <workItem from="1583209121373" duration="660000" />
-      <workItem from="1583209801455" duration="3802000" />
+      <workItem from="1583209801455" duration="4902000" />
+      <workItem from="1583284404123" duration="714000" />
+      <workItem from="1583290262055" duration="136000" />
+      <workItem from="1583290553928" duration="45000" />
+      <workItem from="1583292024965" duration="11000" />
+      <workItem from="1583292382431" duration="9000" />
+      <workItem from="1583292698064" duration="44000" />
+      <workItem from="1583292767153" duration="2465000" />
     </task>
     <servers />
   </component>

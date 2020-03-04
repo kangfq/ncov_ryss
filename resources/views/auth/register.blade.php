@@ -65,6 +65,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+                                <a href="{{ route('login') }}">登陆</a>
                             </div>
                         </div>
                     </form>

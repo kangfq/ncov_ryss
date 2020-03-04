@@ -33,7 +33,9 @@
                                     <th scope="row">{{ $aged->address}}</th>
                                     <th scope="row">{{ $aged->children_tel}}</th>
                                     <th scope="row">{{ $aged->note}}</th>
-                                    <th scope="row"><a href="javascript:;" onClick="document.getElementById('del_aged_{{ $aged->id }}').submit();">删除</a>
+                                    <th scope="row">
+                                        <a href="{{ route('admin.aged.edit',$aged->id) }}">编辑</a> /
+                                        <a href="javascript:;" onClick="document.getElementById('del_aged_{{ $aged->id }}').submit();">删除</a>
                                         <form action="{{ route('admin.aged.destroy',$aged->id) }}" method="post" id="del_aged_{{ $aged->id }}">
                                             @csrf
                                             @method('delete')
