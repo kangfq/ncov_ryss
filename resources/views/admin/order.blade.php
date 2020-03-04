@@ -43,30 +43,42 @@
                                     <input type="text" class="form-control" name="s_id" autocomplete="off"
                                            value="{{ Request::input('s_id') }}">
                                 </div>
+                                <div class="form-group col-md-1">
+                                    <label for="created_at">姓名</label>
+                                    <input type="text" class="form-control" name="s_name" autocomplete="off"
+                                           value="{{ Request::input('s_name') }}">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="created_at">电话</label>
+                                    <input type="text" class="form-control" name="s_tel" autocomplete="off"
+                                           value="{{ Request::input('s_tel') }}">
+                                </div>
                                 <div class="form-group col-md-3">
                                     <label for="created_at">下单日期</label>
-                                    <input type="text" class="form-control" id="created_at" name="created_at" autocomplete="off"
+                                    <input type="text" class="form-control" id="created_at" name="created_at"
+                                           autocomplete="off"
                                            value="{{ Request::input('created_at') }}">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="pay_date">收款日期</label>
-                                    <input type="text" class="form-control" id="pay_date" name="pay_date" autocomplete="off"
+                                    <input type="text" class="form-control" id="pay_date" name="pay_date"
+                                           autocomplete="off"
                                            value="{{ Request::input('pay_date') }}">
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-1">
                                     <label for="inputState">收款状态</label>
                                     <select id="inputState" class="form-control" name="pay_state">
-                                        <option selected value="">--未指定--</option>
+                                        <option selected value="">---</option>
                                         <option value="y" @if(Request::input('pay_state')=='y') selected @endif>已收款
                                         </option>
                                         <option value="n" @if(Request::input('pay_state')=='n') selected @endif>未收款
                                         </option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-1">
                                     <label for="inputState">收货状态</label>
                                     <select id="inputState" class="form-control" name="is_success">
-                                        <option selected value="">--未指定--</option>
+                                        <option selected value="">---</option>
                                         <option value="y" @if(Request::input('is_success')=='y') selected @endif>已收货
                                         </option>
                                         <option value="n" @if(Request::input('is_success')=='n') selected @endif>未收货
@@ -83,11 +95,14 @@
                                     <button type="button" class="btn btn-sm btn-danger">订单回收站</button>
                                 </a>
                                 <a href="{{ route('order.export_order',['id'=>$mall->id,
-'created_at'=>Request::input('created_at'),
-'pay_date'=>Request::input('pay_date'),
-'pay_state'=>Request::input('pay_state'),
-'is_success'=>Request::input('is_success'),
-'s_id'=>Request::input('s_id')]) }}">
+                                        'created_at'=>Request::input('created_at'),
+                                        'pay_date'=>Request::input('pay_date'),
+                                        'pay_state'=>Request::input('pay_state'),
+                                        'is_success'=>Request::input('is_success'),
+                                        's_id'=>Request::input('s_id'),
+                                        's_name'=>Request::input('s_name'),
+                                        's_tel'=>Request::input('s_tel'),
+                                        ]) }}">
                                     <button type="button" class="btn btn-danger btn-sm">导出到Excel</button>
                                 </a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="window.print();">打印本页
@@ -151,7 +166,14 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $orders->appends(['created_at' => Request::input('created_at'),'pay_date'=>Request::input('pay_date'),'pay_state'=>Request::input('pay_state'),'is_success'=>Request::input('is_success')])->links() }}
+                        {{ $orders->appends(['created_at' => Request::input('created_at'),
+                                            'pay_date'=>Request::input('pay_date'),
+                                            'pay_state'=>Request::input('pay_state'),
+                                            'is_success'=>Request::input('is_success'),
+                                            's_id'=>Request::input('s_id'),
+                                            's_name'=>Request::input('s_name'),
+                                            's_tel'=>Request::input('s_tel'),
+                                            ])->links() }}
                         <hr>
                         <b>【汇总信息】订单数量：{{ $base['count'] }}，商品总件数：{{ $base['total_num'] }}
                             件，订单总金额：{{ $base['total_money'] }}
