@@ -32,7 +32,6 @@
                                       style="margin-right: 5px;font-size: 85%!important;">商家：{{ $order['mall']->name }}</span>
                                 <span class="badge badge-success" style="font-size: 85%!important;">已付款</span>
                             @endif
-
                         </div>
                         <div class="card-footer bg-transparent ">
                             @if($order['is_success']===0)

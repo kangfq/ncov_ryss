@@ -20,7 +20,7 @@
                         订单号:{{ $order->id }} 收货人:{{ $order->name }} {{ $order->tel }}
                     </div>
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-4">{{  $order->pro_text }}</h6>
+                        <h6 class="card-subtitle mb-4">{{  $pro_text }}</h6>
                         <h6 class="card-subtitle mb-2 text-muted">商家:{{ $order->mall->name }}
                             共{{ $order['total_num'] }}件 ￥{{ $order['total_money'] }}</h6>
                         <h6 class="card-subtitle mb-2 text-muted">下单时间 {{ $order['created_at'] }}</h6>
