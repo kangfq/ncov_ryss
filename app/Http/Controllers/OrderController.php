@@ -8,6 +8,7 @@ use App\Cart;
 use App\Mall;
 use App\Order;
 use App\Product;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -89,11 +90,11 @@ class OrderController extends Controller
                 //减商品对应的库存
                 foreach ($carts as $cart) {
                     $product = Product::lockForUpdate()->find($cart->product_id);
+                    $product->decrement('stock', $cart->total_num);
                     //如果库存为负数则抛出异常
-                    if ($product->stock - $cart->total_mum < 0) {
+                    if ($product->stock < 0) {
                         throw new \Exception('当前商品'.$product->name.'库存不足，提交订单失败!');
                     }
-                    $product->decrement('stock', $cart->total_num);
                 }
                 //清空购物车
                 Cart::where('user_id', Auth::id())->where('mall_id', $mall_id)->delete();
