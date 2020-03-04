@@ -25,11 +25,11 @@
                             <h6 class="card-subtitle mb-2 text-muted">共{{ $order['total_num'] }}件
                                 ￥{{ $order['total_money'] }}</h6>
                             <h6 class="card-subtitle mb-2 text-muted">下单时间 {{ $order['created_at'] }}</h6>
+                            <span class="badge badge-danger"
+                                  style="margin-right: 5px;font-size: 85%!important;">商家：{{ $order['mall']->name }}</span>
                             @if(is_null($order['pay_time']))
                                 <span class="badge badge-warning" style="font-size: 85%!important;">未付款</span>
                             @else
-                                <span class="badge badge-danger"
-                                      style="margin-right: 5px;font-size: 85%!important;">商家：{{ $order['mall']->name }}</span>
                                 <span class="badge badge-success" style="font-size: 85%!important;">已付款</span>
                             @endif
                         </div>

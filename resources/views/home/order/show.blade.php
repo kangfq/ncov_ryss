@@ -31,6 +31,10 @@
                         @endif
                     </div>
                     <div class="card-footer bg-transparent ">
+                        <button type="button" class="btn btn-danger btn-sm"
+                                style="float:left;margin-right: 10px;" data-toggle="modal"
+                                data-target="#order_pay_show">立即付款
+                        </button>
                         <form action="{{ route('order.success',$order['id']) }}" method="post" style="float:left;">
                             @csrf
                             <input type="hidden" name="order_id" value="{{ $order['id'] }}">
@@ -82,6 +86,31 @@
             </div>
         </div>
     @endif
+    <div class="modal fade" id="order_pay_show" data-backdrop="static" tabindex="-1" role="dialog"
+         aria-labelledby="order_success" aria-hidden="true">
+        <div class="modal-dialog modal-sm " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">付款方式</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <img src="{{$order->mall->pay_qrcode}}" class="card-img-top img-responsive center-block">
+                        <div class="card-body">
+                            <h6 class="card-title">加好友付款需知</h6>
+                            <p class="card-text">订单号+姓名+电话+金额 然后转账</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('js')
     <script type="text/javascript">

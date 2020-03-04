@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8b90923-2075-4c0d-a82d-cc6926cae33e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/resources/views/home/cart/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/cart/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/home/order/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/order/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/home/order/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home/order/show.blade.php" afterDir="false" />
     </list>
@@ -204,7 +203,7 @@
       <workItem from="1583292024965" duration="11000" />
       <workItem from="1583292382431" duration="9000" />
       <workItem from="1583292698064" duration="44000" />
-      <workItem from="1583292767153" duration="7250000" />
+      <workItem from="1583292767153" duration="7605000" />
     </task>
     <servers />
   </component>
